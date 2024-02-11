@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BookwormMiddlewareApplication<bookworm_middleware>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.bookworm.bookworm_middleware.BookwormMiddlewareApplication",
+            "projectName": "bookworm_middleware",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

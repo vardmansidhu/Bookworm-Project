@@ -10,6 +10,7 @@ import com.bookworm.bookworm_middleware.services.IMyShelfManager;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/myshelf")
 public class MyShelfController {
 

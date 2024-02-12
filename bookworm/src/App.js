@@ -45,7 +45,6 @@ const App = () => {
       <div id="content">
         {/* Content will be injected here by the Router */}
       </div>
-      {/* <Footer /> */}
     </div>
     //create a new div element
     

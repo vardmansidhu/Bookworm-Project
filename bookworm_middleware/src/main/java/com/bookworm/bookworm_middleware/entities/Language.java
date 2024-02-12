@@ -1,3 +1,5 @@
+package com.bookworm.bookworm_middleware.entities;
+
 import jakarta.persistence.*;
 
 @Entity

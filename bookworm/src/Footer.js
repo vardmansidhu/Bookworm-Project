@@ -3,9 +3,9 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer>
-            <p>Copyright © 2024 Bookworm</p>
-        </footer>
+        <div style={{position: 'fixed', left: 0, bottom: 0, width: '100%', backgroundColor: '#f8f9fa', textAlign: 'center', padding: '20px'}}>
+            © 2022 My Website
+        </div>
     );
 }
 

@@ -32,6 +32,7 @@ import Home from './Home';
 import Products from './Products';
 import About from './About';
 import Contact from './Contact';
+import Footer from './Footer';
 // Assuming you have these components
 // import Component2 from './Component2';
 
@@ -47,6 +48,7 @@ ReactDOM.render(
         {/* <Route path="/component2" component={Component2} /> */}
         {/* Add as many routes as needed */}
       </Routes>
+      <Footer />
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

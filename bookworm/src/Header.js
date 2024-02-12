@@ -17,6 +17,7 @@ const Header = () => {
           <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link>
         </Nav>
       </Navbar.Collapse>
+      <Navbar.Brand style={{ padding: '10px' }} as={Link} to="/">Login/Register</Navbar.Brand>
     </Navbar>
     );
 };

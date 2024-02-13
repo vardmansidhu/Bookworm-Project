@@ -16,7 +16,7 @@ const Contact = () => {
                 name: formData.name,
                 email: 'infinityrisky999@gmail.com',
                 subject: formData.subject,
-                message: `Their email address is ${formData.email}. Message - ${formData.message}`
+                message: `Their email address is ${formData.email}. \n\nMessage - ${formData.message}`
             };
             await axios.post('http://localhost:8080/api/contact', emailData);
             alert('Email sent successfully');

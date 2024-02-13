@@ -1,4 +1,3 @@
-// Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
@@ -6,9 +5,18 @@ import { FaHome, FaProductHunt, FaInfoCircle, FaEnvelope, FaUser } from 'react-i
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Header = () => {
-    return (
-        <Navbar bg="dark" variant="dark" expand="lg">
-      <Navbar.Brand style={{ padding: '10px' }} as={Link} to="/">Bookworm</Navbar.Brand>
+  return (
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar.Brand as={Link} to="/">
+        <img
+          src="/logo.png"
+          width="50"
+          height="50"
+          className="d-inline-block align-top"
+          alt="Bookworm logo"
+        />
+        Bookworm
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
         <Nav>
@@ -20,7 +28,7 @@ const Header = () => {
       </Navbar.Collapse>
       <Navbar.Brand style={{ padding: '10px' }} as={Link} to="/">Login/Register</Navbar.Brand>
     </Navbar>
-    );
+  );
 };
 
 export default Header;

@@ -13,30 +13,29 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Invoice 
-{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="invoice_id")
-    private int invoiceId;
-    
-    @Column(name="invoice_date")
-    private Date invoiceDate;
-    
-    // @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    // @JoinColumn(name="customer_id")
-	@Column(name="customer_id")
-    private int customerId;
-    
-    @Column(name="invoice_amount")
-    private float invoiceAmount;
-    private int quantity;
-    
-    @Column(name="base_price")
-    private float basePrice;
-    
-    @Column(name="selling_price")
-    private float sellingPrice;
+public class Invoice {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "invoice_id")
+	private int invoiceId;
+
+	@Column(name = "invoice_date")
+	private Date invoiceDate;
+
+	// @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	// @JoinColumn(name="customer_id")
+	@Column(name = "customer_id")
+	private int customerId;
+
+	@Column(name = "invoice_amount")
+	private float invoiceAmount;
+	private int quantity;
+
+	// @Column(name="base_price")
+	// private float basePrice;
+
+	// @Column(name="selling_price")
+	// private float sellingPrice;
 
 	public int getInvoiceid() {
 		return invoiceId;
@@ -78,19 +77,19 @@ public class Invoice
 		this.quantity = quantity;
 	}
 
-	public float getBaseprice() {
-		return basePrice;
-	}
+	// public float getBaseprice() {
+	// return basePrice;
+	// }
 
-	public void setBaseprice(float baseprice) {
-		this.basePrice = baseprice;
-	}
+	// public void setBaseprice(float baseprice) {
+	// this.basePrice = baseprice;
+	// }
 
-	public float getSellingprice() {
-		return sellingPrice;
-	}
+	// public float getSellingprice() {
+	// return sellingPrice;
+	// }
 
-	public void setSellingprice(float sellingprice) {
-		this.sellingPrice = sellingprice;
-	}
+	// public void setSellingprice(float sellingprice) {
+	// this.sellingPrice = sellingprice;
+	// }
 }

@@ -6,13 +6,14 @@ import java.util.Optional;
 
 import com.bookworm.bookworm_middleware.entities.Customer;
 import com.bookworm.bookworm_middleware.entities.Invoice;
+import com.bookworm.bookworm_middleware.dtos.InvoiceDto;
 
 public interface IInvoiceManager {
 	Optional<Invoice> getInvoiceById(int invoiceid);
 
 	void deleteByInvoiceId(int id);
 
-	void addInvoice(Invoice invoice);
+	// void addInvoice(InvoiceDto invoiceDto);
 
 	List<Invoice> getByCustomerId(int customerid);
 
@@ -23,4 +24,7 @@ public interface IInvoiceManager {
 	List<Invoice> getInvoiceByDate(Date date);
 
 	void deleteByInvoiceDate(Date date);
+
+	void createInvoiceAndDetails(InvoiceDto invoiceDto);
+
 }

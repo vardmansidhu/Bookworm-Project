@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookworm.bookworm_middleware.dtos.InvoiceDto;
 import com.bookworm.bookworm_middleware.entities.Invoice;
 import com.bookworm.bookworm_middleware.services.IInvoiceManager;
 
@@ -33,13 +34,13 @@ public class InvoiceController {
 	}
 
 	@PostMapping("/add")
-	public int addInvoice(@RequestBody Invoice inv) {
+	public void addInvoice(@RequestBody InvoiceDto invoiceDto) {
 		LocalDate ldate = LocalDate.now();
-		System.out.println(inv);
+		// System.out.println(inv);
 		Date date = Date.from(ldate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		inv.setInvoicedate(date);
-		iservice.addInvoice(inv);
-		return inv.getInvoiceid();
+		invoiceDto.setInvoiceDate(date);
+		iservice.createInvoiceAndDetails(invoiceDto);
+		// return invoiceDto.getInvoiceid();
 	}
 
 	@DeleteMapping("/delete/{id}")

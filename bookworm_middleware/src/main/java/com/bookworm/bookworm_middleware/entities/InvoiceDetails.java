@@ -106,5 +106,11 @@ public class InvoiceDetails {
 		this.rentingDays = rentingDays;
 	}
 
+	@Override
+	public String toString() {
+		return "InvoiceDetails [basePrice=" + basePrice + ", invDtlId=" + invDtlId + ", invoice=" + invoice
+				+ ", product=" + product + ", quantity=" + quantity + ", rentingDays=" + rentingDays + ", sellingPrice="
+				+ sellingPrice + ", transactionType=" + transactionType + "]";
+	}
     
 }

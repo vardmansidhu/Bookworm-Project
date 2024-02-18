@@ -92,7 +92,7 @@ public class InvoiceManagerImpl implements IInvoiceManager {
 			// set properties from detailDto
 			invoiceDetails.setInvoice(savedInvoice.getInvoiceid());
 			invoiceDetails.setProduct(detailDto.getProductId());
-			invoiceDetails.setQuantity(detailDto.getQuantity());
+			// invoiceDetails.setQuantity(detailDto.getQuantity());
 			invoiceDetails.setBasePrice(detailDto.getBasePrice());
 			invoiceDetails.setSellingPrice(detailDto.getSellingPrice());
 			invoiceDetails.setTransactionType(detailDto.getTransactionTypeId());

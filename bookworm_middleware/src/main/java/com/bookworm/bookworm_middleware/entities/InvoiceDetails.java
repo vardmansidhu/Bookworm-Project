@@ -30,8 +30,8 @@ public class InvoiceDetails {
 	@Column(name = "product_id")
 	private int productId;
 
-	@Column(name = "quantity")
-	private int quantity;
+	// @Column(name = "quantity")
+	// private int quantity;
 
 	@Column(name = "base_price")
 	private double basePrice;
@@ -71,13 +71,13 @@ public class InvoiceDetails {
 		this.productId = productId;
 	}
 
-	public int getQuantity() {
-		return quantity;
-	}
+	// public int getQuantity() {
+	// return quantity;
+	// }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+	// public void setQuantity(int quantity) {
+	// this.quantity = quantity;
+	// }
 
 	public double getBasePrice() {
 		return basePrice;
@@ -114,7 +114,7 @@ public class InvoiceDetails {
 	@Override
 	public String toString() {
 		return "InvoiceDetails [basePrice=" + basePrice + ", invDtlId=" + invDtlId + ", invoice=" + invoiceId
-				+ ", product=" + productId + ", quantity=" + quantity + ", rentingDays=" + rentingDays
+				+ ", product=" + productId + /* ", quantity=" + quantity + */ ", rentingDays=" + rentingDays
 				+ ", sellingPrice="
 				+ sellingPrice + ", transactionType=" + transactionTypeId + "]";
 	}

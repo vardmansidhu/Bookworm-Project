@@ -40,12 +40,15 @@ export default function Cart() {
     0
   );
 
-  const rentDays = cookies.rent.reduce((acc, curr) => {
-    acc[curr.id] = curr.days;
-    return acc;
-  }, {});
+  // const rentDays = cookies.rent.reduce((acc, curr) => {
+  //   acc[curr.id] = curr.days;
+  //   return acc;
+  // }, {});
 
-  console.log(rentDays);
+  // console.log(cookies.cart.buy[0]);
+  // console.log(cookies.cart.rent[0].id);
+
+  // console.log(rentDays);
 
   const handlePay = () => {
     if (!cookies.user) {
@@ -55,27 +58,28 @@ export default function Cart() {
     }
 
     const totalBasePrice = products.reduce((total, product) => total + product.basePrice, 0);
+    // const totalBasePrice = 100;
 
     if (window.confirm("Confirm your Order and Make Payment?")) {
       setProducts([]);
       setCookie("cart", [], { path: "/" });
 
-      const invoiceDetails = products.map(product => ({
+      const invoiceDetailsList = products.map(product => ({
         // "invDtlId": 1,
         // "quantity": 1,
         basePrice: totalBasePrice,
         sellingPrice: totalBasePrice + (totalBasePrice * 0.18) + (totalBasePrice * 0.2),
-        rentingDays: rentDays,
-        product: product.productId,
-        transactionType: product.isRent ? "R" : "P"
+        rentingDays: product.isRent ? cookies.cart.rent[0].days : null,
+        productId: product.productId,
+        transactionTypeId: product.isRent ? 2 : 1
       }));
 
       const data = {
-        invoicedate: new Date().toISOString(),
-        customerid: parseInt(cookies.user),
-        invoiceamount: totalAmount,
+        invoiceDate: new Date().toISOString(),
+        customerId: parseInt(cookies.user),
+        invoiceAmount: totalAmount,
         quantity: products.length,
-        details: invoiceDetails
+        invoiceDetails: invoiceDetailsList
       };
       
       fetch('http://localhost:8080/api/invoice/add', {

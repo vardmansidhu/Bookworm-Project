@@ -35,6 +35,7 @@ public class InvoiceController {
 
 	@PostMapping("/add")
 	public void addInvoice(@RequestBody InvoiceDto invoiceDto) {
+		System.out.println(invoiceDto);
 		LocalDate ldate = LocalDate.now();
 		// System.out.println(inv);
 		Date date = Date.from(ldate.atStartOfDay(ZoneId.systemDefault()).toInstant());

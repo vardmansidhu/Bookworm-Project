@@ -42,7 +42,7 @@ public class InvoiceDetails {
 	// @ManyToOne
 	// @JoinColumn(name = "transaction_type_id", referencedColumnName =
 	// "transaction_type_id")
-	private int transactionTypeId;
+	private Integer transactionTypeId;
 
 	@Column(name = "renting_days")
 	private Integer rentingDays;
@@ -95,11 +95,11 @@ public class InvoiceDetails {
 		this.sellingPrice = sellingPrice;
 	}
 
-	public int getTransactionType() {
+	public Integer getTransactionType() {
 		return transactionTypeId;
 	}
 
-	public void setTransactionType(char transactionTypeId) {
+	public void setTransactionType(Integer transactionTypeId) {
 		this.transactionTypeId = transactionTypeId;
 	}
 

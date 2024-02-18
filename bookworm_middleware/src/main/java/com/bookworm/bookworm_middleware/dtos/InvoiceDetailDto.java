@@ -5,7 +5,7 @@ public class InvoiceDetailDto {
     private Integer quantity;
     private Float basePrice;
     private Float sellingPrice;
-    private char transactionTypeId;
+    private Integer transactionTypeId;
     private Integer rentingDays;
     private Integer invoiceId;
 
@@ -49,11 +49,11 @@ public class InvoiceDetailDto {
         this.sellingPrice = sellingPrice;
     }
 
-    public char getTransactionTypeId() {
+    public Integer getTransactionTypeId() {
         return transactionTypeId;
     }
 
-    public void setTransactionTypeId(char transactionTypeId) {
+    public void setTransactionTypeId(Integer transactionTypeId) {
         this.transactionTypeId = transactionTypeId;
     }
 

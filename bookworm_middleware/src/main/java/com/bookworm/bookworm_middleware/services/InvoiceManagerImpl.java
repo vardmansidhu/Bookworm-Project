@@ -75,6 +75,7 @@ public class InvoiceManagerImpl implements IInvoiceManager {
 	@Override
 	@Transactional
 	public void createInvoiceAndDetails(InvoiceDto invoiceDto) {
+		System.out.println(invoiceDto);
 		// Create and save the Invoice
 		Invoice invoice = new Invoice();
 		invoice.setInvoicedate(invoiceDto.getInvoiceDate());

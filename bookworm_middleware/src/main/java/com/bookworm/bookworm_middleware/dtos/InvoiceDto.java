@@ -9,6 +9,7 @@ public class InvoiceDto {
     private Integer customerId;
     private Float invoiceAmount;
     private int quantity;
+    private List<InvoiceDetailDto> invoiceDetails;
 
     public int getQuantity() {
         return quantity;
@@ -17,8 +18,6 @@ public class InvoiceDto {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    private List<InvoiceDetailDto> invoiceDetails;
 
     public Date getInvoiceDate() {
         return invoiceDate;
@@ -50,6 +49,13 @@ public class InvoiceDto {
 
     public void setInvoiceDetails(List<InvoiceDetailDto> invoiceDetails) {
         this.invoiceDetails = invoiceDetails;
+    }
+
+    @Override
+    public String toString() {
+        return "InvoiceDto [customerId=" + customerId + ", invoiceAmount=" + invoiceAmount + ", invoiceDate="
+                + invoiceDate
+                + ", invoiceDetails=" + invoiceDetails + ", quantity=" + quantity + "]";
     }
 
 }

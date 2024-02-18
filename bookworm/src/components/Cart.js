@@ -40,6 +40,13 @@ export default function Cart() {
     0
   );
 
+  const rentDays = cookies.rent.reduce((acc, curr) => {
+    acc[curr.id] = curr.days;
+    return acc;
+  }, {});
+
+  console.log(rentDays);
+
   const handlePay = () => {
     if (!cookies.user) {
       alert("You have to login first!");
@@ -53,36 +60,44 @@ export default function Cart() {
       setProducts([]);
       setCookie("cart", [], { path: "/" });
 
+      const invoiceDetails = products.map(product => ({
+        // "invDtlId": 1,
+        // "quantity": 1,
+        basePrice: totalBasePrice,
+        sellingPrice: totalBasePrice + (totalBasePrice * 0.18) + (totalBasePrice * 0.2),
+        rentingDays: rentDays,
+        product: product.productId,
+        transactionType: product.isRent ? "R" : "P"
+      }));
+
       const data = {
-        baseprice: totalBasePrice - (totalBasePrice * 0.2) - (totalBasePrice * 0.18),
+        invoicedate: new Date().toISOString(),
+        customerid: parseInt(cookies.user),
         invoiceamount: totalAmount,
         quantity: products.length,
-        sellingprice: totalAmount + (totalAmount * 0.2),
-        customerid: parseInt(cookies.user)
+        details: invoiceDetails
       };
       
-      // console.log(data);
-
-    fetch('http://localhost:8080/api/invoice/add', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(res => {
-        if (res.ok && res.headers.get('Content-Length') !== '0') {
-            return res.json();
-        } else {
-            return null;
-        }
-    })
-    .then(data => {
-        if (data) {
-            console.log(data);
-        }
-    })
-    .catch((error) => console.log(error));
+      fetch('http://localhost:8080/api/invoice/add', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+      })
+      .then(res => {
+          if (res.ok && res.headers.get('Content-Length') !== '0') {
+              return res.json();
+          } else {
+              return null;
+          }
+      })
+      .then(data => {
+          if (data) {
+              console.log(data);
+          }
+      })
+      .catch((error) => console.log(error));
       alert("Your order has been confirmed!");
     } else {
       alert("Your order has been cancelled.");

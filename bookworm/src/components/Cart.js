@@ -60,21 +60,37 @@ export default function Cart() {
     const totalBasePrice = products.reduce((total, product) => total + product.basePrice, 0);
     // const totalBasePrice = 100;
 
+    // Assuming `cookieValue` is the value of your cookie
+    const cookieValue = cookies.cart;
+
+    // Parse the cookie value
+    const parsedCookie = JSON.parse(JSON.stringify(cookieValue));
+
+    // Access the 'rent' array
+    const rentArray = parsedCookie.rent;
+
+    // console.log(rentArray);
+
+    // Find the product with id
+    // console.log(rentArray.find(item => item.id == 4).days);
+
     if (window.confirm("Confirm your Order and Make Payment?")) {
       setProducts([]);
       setCookie("cart", [], { path: "/" });
+
+      
 
       const invoiceDetailsList = products.map(product => ({
         // "invDtlId": 1,
         // "quantity": 1,
         basePrice: totalBasePrice,
-        sellingPrice: totalBasePrice + (totalBasePrice * 0.18) + (totalBasePrice * 0.2),
-        rentingDays: product.isRent ? cookies.cart.rent[0].days : null,
+        sellingPrice: (totalBasePrice + (totalBasePrice * 0.18) + (totalBasePrice * 0.2)).toFixed(2),
+        rentingDays: product.isRent ? rentArray.find(item => item.id == product.productId).days : null,
         productId: product.productId,
         transactionTypeId: product.isRent ? 2 : 1
       }));
 
-      const data = {
+      const data = {  
         invoiceDate: new Date().toISOString(),
         customerId: parseInt(cookies.user),
         invoiceAmount: totalAmount,

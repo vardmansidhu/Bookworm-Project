@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bookworm.bookworm_middleware.dtos.InvoiceDto;
 import com.bookworm.bookworm_middleware.entities.Invoice;
+import com.bookworm.bookworm_middleware.pdfgen.InvoicePDFExporter;
 import com.bookworm.bookworm_middleware.services.IInvoiceManager;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @CrossOrigin("*")
@@ -47,6 +49,13 @@ public class InvoiceController {
 	@DeleteMapping("/delete/{id}")
 	public void deleteById(@PathVariable int id) {
 		iservice.deleteByInvoiceId(id);
+	}
+
+	@GetMapping("/pdf")
+	public String getMethodName() {
+		InvoicePDFExporter exporter = new InvoicePDFExporter();
+		exporter.generateInvoice();
+		return "Invoice PDF Generated";
 	}
 
 }

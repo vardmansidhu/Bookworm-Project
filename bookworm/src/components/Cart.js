@@ -50,6 +50,9 @@ export default function Cart() {
 
   // console.log(rentDays);
 
+  //Print all products in products state
+  // console.log(products);
+
   const handlePay = () => {
     if (!cookies.user) {
       alert("You have to login first!");

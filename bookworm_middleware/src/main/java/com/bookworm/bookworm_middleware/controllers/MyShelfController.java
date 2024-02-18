@@ -1,4 +1,4 @@
-package com.bookworm.bookworm_middleware.controller;
+package com.bookworm.bookworm_middleware.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,14 +38,15 @@ public class MyShelfController {
     }
 
     // @PutMapping("/{id}")
-    // public ResponseEntity<MyShelf> updateMyShelfItem(@PathVariable Integer id, @RequestBody MyShelf myShelf) {
-    //     MyShelf existingMyShelf = myShelfService.getMyShelfItemById(id);
-    //     if (existingMyShelf != null) {
-    //         myShelf.setShelfId(id);
-    //         return ResponseEntity.ok(myShelfService.saveMyShelfItem(myShelf));
-    //     } else {
-    //         return ResponseEntity.notFound().build();
-    //     }
+    // public ResponseEntity<MyShelf> updateMyShelfItem(@PathVariable Integer id,
+    // @RequestBody MyShelf myShelf) {
+    // MyShelf existingMyShelf = myShelfService.getMyShelfItemById(id);
+    // if (existingMyShelf != null) {
+    // myShelf.setShelfId(id);
+    // return ResponseEntity.ok(myShelfService.saveMyShelfItem(myShelf));
+    // } else {
+    // return ResponseEntity.notFound().build();
+    // }
     // }
 
     @DeleteMapping("/{id}")

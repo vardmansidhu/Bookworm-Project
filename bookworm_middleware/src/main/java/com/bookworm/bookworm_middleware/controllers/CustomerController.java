@@ -1,4 +1,4 @@
-package com.bookworm.bookworm_middleware.controller;
+package com.bookworm.bookworm_middleware.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +34,7 @@ public class CustomerController {
 	public ResponseEntity<String> login(@RequestBody UserDto user, HttpSession session) {
 		Customer customer = manager.authenticate(user.getCustomerEmail(), user.getPassword());
 		if (customer != null) {
-			session.setAttribute("user", customer); 
+			session.setAttribute("user", customer);
 			return ResponseEntity.ok(String.valueOf(customer.getCustomerId()));
 		} else
 			return ResponseEntity.badRequest().body("Invalid Login Credentials");

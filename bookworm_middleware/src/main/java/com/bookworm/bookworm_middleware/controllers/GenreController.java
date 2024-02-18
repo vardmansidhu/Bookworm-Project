@@ -1,4 +1,4 @@
-package com.bookworm.bookworm_middleware.controller;
+package com.bookworm.bookworm_middleware.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,16 +21,16 @@ import com.bookworm.bookworm_middleware.services.IGenreManager;
 @CrossOrigin("*")
 @RequestMapping("/api/genre")
 public class GenreController {
-	
+
 	@Autowired
-	private  IGenreManager genreServices;
+	private IGenreManager genreServices;
 
 	@PostMapping("/add")
 	public void addGenre(@RequestBody Genre g) {
 		System.out.println("inside the mtd");
 		genreServices.addGenre(g);
 	}
-	
+
 	@GetMapping("/get")
 	public List<Genre> getGenres() {
 		return genreServices.getGenres();
@@ -57,5 +57,4 @@ public class GenreController {
 		genreServices.updateGenre(genre, id);
 	}
 
-	
 }

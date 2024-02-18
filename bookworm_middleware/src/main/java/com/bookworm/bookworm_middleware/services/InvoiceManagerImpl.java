@@ -12,8 +12,7 @@ import com.bookworm.bookworm_middleware.entities.Invoice;
 import com.bookworm.bookworm_middleware.repositories.IInvoiceRepository;
 
 @Service
-public class InvoiceManagerImpl implements IInvoiceManager
-{
+public class InvoiceManagerImpl implements IInvoiceManager {
 	@Autowired
 	IInvoiceRepository repo;
 
@@ -30,6 +29,7 @@ public class InvoiceManagerImpl implements IInvoiceManager
 	@Override
 	public void addInvoice(Invoice invoice) {
 		repo.save(invoice);
+		// return invoice.getInvoiceid();
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class InvoiceManagerImpl implements IInvoiceManager
 	@Override
 	public void deleteByCustomerId(int customerid) {
 		repo.deleteByCustomerId(customerid);
-		
+
 	}
 
 	@Override

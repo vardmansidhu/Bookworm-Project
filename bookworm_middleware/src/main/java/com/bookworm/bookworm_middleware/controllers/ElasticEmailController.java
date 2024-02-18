@@ -1,4 +1,4 @@
-package com.bookworm.bookworm_middleware.controller;
+package com.bookworm.bookworm_middleware.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +23,7 @@ public class ElasticEmailController {
     @PostMapping("/api/contact")
     public void sendEmail(@RequestBody ElasticEmail elasticEmail) {
         String body = "Message from: " + elasticEmail.getName() + "\n\n" + elasticEmail.getMessage();
-        elasticEmailManager.sendEmail(elasticEmail.getEmail(), "infinityrisky999@gmail.com", elasticEmail.getSubject(), body);
+        elasticEmailManager.sendEmail(elasticEmail.getEmail(), "infinityrisky999@gmail.com", elasticEmail.getSubject(),
+                body);
     }
 }

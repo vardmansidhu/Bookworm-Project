@@ -1,4 +1,4 @@
-package com.bookworm.bookworm_middleware.controller;
+package com.bookworm.bookworm_middleware.controllers;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class RentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Rent> getRentById(@PathVariable int id){
+    public ResponseEntity<Rent> getRentById(@PathVariable int id) {
         Rent rent = rentService.getRentById(id);
         if (rent != null) {
             return ResponseEntity.ok(rent);

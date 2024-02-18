@@ -1,4 +1,5 @@
-package com.bookworm.bookworm_middleware.controller;
+package com.bookworm.bookworm_middleware.controllers;
+
 import com.bookworm.bookworm_middleware.entities.*;
 
 import java.util.List;
@@ -23,52 +24,56 @@ import com.bookworm.bookworm_middleware.services.IBenificiaryManager;
 @CrossOrigin("*")
 @RequestMapping("/api/beneficiary")
 public class BenificiaryManagerController {
-	
+
 	@Autowired
 	private IBenificiaryManager benrepo;
-	
-	@GetMapping(value= "get")
-	public ResponseEntity<List<Beneficiary>> showallBen(){
+
+	@GetMapping(value = "get")
+	public ResponseEntity<List<Beneficiary>> showallBen() {
 		List<Beneficiary> benli = benrepo.getallBen();
-		return new ResponseEntity<>(benli,HttpStatus.OK);
-		
+		return new ResponseEntity<>(benli, HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("get/{ID}")
-	public ResponseEntity<Beneficiary> getBenById(@PathVariable long id){
+	public ResponseEntity<Beneficiary> getBenById(@PathVariable long id) {
 		java.util.Optional<Beneficiary> optional = benrepo.getBen(id);
-		if(optional.isPresent()) {
-			return new ResponseEntity<>(optional.get(),HttpStatus.OK);
-		}
-		else {
+		if (optional.isPresent()) {
+			return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
 	@PostMapping("/add")
-	public ResponseEntity<Void>  addben(@RequestBody Beneficiary ben){
+	public ResponseEntity<Void> addben(@RequestBody Beneficiary ben) {
 		try {
 			benrepo.addBeneficiary(ben);
 			return new ResponseEntity<>(HttpStatus.CREATED);
-		}catch(Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	/**@PutMapping("/update/{id}")
-	public ResponseEntity<Void> updateben(@PathVariable long id,@RequestBody Beneficiary ben){
-		try {
-			benrepo.update(ben, id);
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-		catch(Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}**/
+
+	/**
+	 * @PutMapping("/update/{id}")
+	 * public ResponseEntity<Void> updateben(@PathVariable long id,@RequestBody
+	 * Beneficiary ben){
+	 * try {
+	 * benrepo.update(ben, id);
+	 * return new ResponseEntity<>(HttpStatus.OK);
+	 * }
+	 * catch(Exception e) {
+	 * return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	 * }
+	 * }
+	 **/
 	@DeleteMapping("delete/{id}")
-	public ResponseEntity<Void> delByid(@PathVariable long id){
+	public ResponseEntity<Void> delByid(@PathVariable long id) {
 		try {
 			benrepo.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.OK);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

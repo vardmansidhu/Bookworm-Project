@@ -1,4 +1,4 @@
-package com.bookworm.bookworm_middleware.controller;
+package com.bookworm.bookworm_middleware.controllers;
 
 import com.bookworm.bookworm_middleware.entities.MyLibrary;
 import com.bookworm.bookworm_middleware.services.MyLibraryServiceImpl;

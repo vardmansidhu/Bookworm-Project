@@ -1,5 +1,7 @@
 package com.bookworm.bookworm_middleware.entities;
 
+import java.util.Optional;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,34 +15,37 @@ import jakarta.persistence.Table;
 @Table(name = "invoice_details")
 public class InvoiceDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "inv_dtl_id")
-    private int invDtlId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "inv_dtl_id")
+	private int invDtlId;
 
-    @ManyToOne
-    @JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id")
-    private Invoice invoice;
+	// @ManyToOne
+	// @JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id")
+	@Column(name = "invoice_id")
+	private int invoiceId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
-    private Product product;
+	// @ManyToOne
+	// @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+	@Column(name = "product_id")
+	private int productId;
 
-    @Column(name = "quantity")
-    private int quantity;
+	@Column(name = "quantity")
+	private int quantity;
 
-    @Column(name = "base_price")
-    private double basePrice;
+	@Column(name = "base_price")
+	private double basePrice;
 
-    @Column(name = "selling_price")
-    private double sellingPrice;
+	@Column(name = "selling_price")
+	private double sellingPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "transaction_type_id", referencedColumnName = "transaction_type_id")
-    private TransactionType transactionType;
+	// @ManyToOne
+	// @JoinColumn(name = "transaction_type_id", referencedColumnName =
+	// "transaction_type_id")
+	private int transactionTypeId;
 
-    @Column(name = "renting_days")
-    private int rentingDays;
+	@Column(name = "renting_days")
+	private Integer rentingDays;
 
 	public int getInvDtlId() {
 		return invDtlId;
@@ -50,20 +55,20 @@ public class InvoiceDetails {
 		this.invDtlId = invDtlId;
 	}
 
-	public Invoice getInvoice() {
-		return invoice;
+	public int getInvoice() {
+		return invoiceId;
 	}
 
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
+	public void setInvoice(int invoiceId) {
+		this.invoiceId = invoiceId;
 	}
 
-	public Product getProduct() {
-		return product;
+	public int getProduct() {
+		return productId;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct(int productId) {
+		this.productId = productId;
 	}
 
 	public int getQuantity() {
@@ -90,12 +95,12 @@ public class InvoiceDetails {
 		this.sellingPrice = sellingPrice;
 	}
 
-	public TransactionType getTransactionType() {
-		return transactionType;
+	public int getTransactionType() {
+		return transactionTypeId;
 	}
 
-	public void setTransactionType(TransactionType transactionType) {
-		this.transactionType = transactionType;
+	public void setTransactionType(char transactionTypeId) {
+		this.transactionTypeId = transactionTypeId;
 	}
 
 	public Integer getRentingDays() {
@@ -108,9 +113,10 @@ public class InvoiceDetails {
 
 	@Override
 	public String toString() {
-		return "InvoiceDetails [basePrice=" + basePrice + ", invDtlId=" + invDtlId + ", invoice=" + invoice
-				+ ", product=" + product + ", quantity=" + quantity + ", rentingDays=" + rentingDays + ", sellingPrice="
-				+ sellingPrice + ", transactionType=" + transactionType + "]";
+		return "InvoiceDetails [basePrice=" + basePrice + ", invDtlId=" + invDtlId + ", invoice=" + invoiceId
+				+ ", product=" + productId + ", quantity=" + quantity + ", rentingDays=" + rentingDays
+				+ ", sellingPrice="
+				+ sellingPrice + ", transactionType=" + transactionTypeId + "]";
 	}
-    
+
 }

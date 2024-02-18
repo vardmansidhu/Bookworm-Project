@@ -1,4 +1,4 @@
-package com.bookworm.bookworm_middleware.controller;
+package com.bookworm.bookworm_middleware.controllers;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -23,31 +23,28 @@ import com.bookworm.bookworm_middleware.services.IInvoiceManager;
 @RequestMapping("/api/invoice")
 public class InvoiceController {
 
-     @Autowired
-     IInvoiceManager iservice;
-     
-     @GetMapping("/get/{id}")
- 	public Optional<Invoice> getById(@PathVariable int id) 
-     {
- 		Optional<Invoice> a = iservice.getInvoiceById(id);
- 		return a;
- 	}
-     
- 	@PostMapping("/add")
- 	public void addInvoice(@RequestBody Invoice inv) 
- 	{
- 		LocalDate ldate= LocalDate.now();
+	@Autowired
+	IInvoiceManager iservice;
+
+	@GetMapping("/get/{id}")
+	public Optional<Invoice> getById(@PathVariable int id) {
+		Optional<Invoice> a = iservice.getInvoiceById(id);
+		return a;
+	}
+
+	@PostMapping("/add")
+	public int addInvoice(@RequestBody Invoice inv) {
+		LocalDate ldate = LocalDate.now();
 		System.out.println(inv);
- 		Date date= Date.from(ldate.atStartOfDay(ZoneId.systemDefault()).toInstant());
- 		inv.setInvoicedate(date);
- 		iservice.addInvoice(inv);
- 	}
+		Date date = Date.from(ldate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		inv.setInvoicedate(date);
+		iservice.addInvoice(inv);
+		return inv.getInvoiceid();
+	}
 
- 	@DeleteMapping("/delete/{id}")
- 	public void deleteById(@PathVariable int id)
- 	{
- 		iservice.deleteByInvoiceId(id);
- 	}
- 	
+	@DeleteMapping("/delete/{id}")
+	public void deleteById(@PathVariable int id) {
+		iservice.deleteByInvoiceId(id);
+	}
+
 }
-

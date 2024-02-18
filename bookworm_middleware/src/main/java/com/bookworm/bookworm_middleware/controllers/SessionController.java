@@ -1,4 +1,4 @@
-package com.bookworm.bookworm_middleware.controller;
+package com.bookworm.bookworm_middleware.controllers;
 
 // import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

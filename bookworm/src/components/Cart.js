@@ -61,7 +61,7 @@ export default function Cart() {
         customerid: parseInt(cookies.user)
       };
       
-      console.log(data);
+      // console.log(data);
 
     fetch('http://localhost:8080/api/invoice/add', {
         method: 'POST',

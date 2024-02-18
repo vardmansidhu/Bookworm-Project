@@ -1,4 +1,4 @@
-package com.bookworm.bookworm_middleware.controller;
+package com.bookworm.bookworm_middleware.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +30,7 @@ public class ProductTypeController {
 	@GetMapping(value = "/get")
 	public List<ProductType> showAllProducts() {
 		return p.getAllProducts();
- 
+
 	}
 
 	@DeleteMapping(value = "/delete/{pid}")
@@ -48,10 +48,9 @@ public class ProductTypeController {
 		p.addProductType(product);
 	}
 
-	
 	@GetMapping("/get/{type}")
 	public Optional<ProductType> getByType(@PathVariable String type) {
-        return p.getByType(type);
-    }
+		return p.getByType(type);
+	}
 
 }

@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bookworm.bookworm_middleware.dtos.InvoiceDto;
 import com.bookworm.bookworm_middleware.entities.Invoice;
 import com.bookworm.bookworm_middleware.pdfgen.InvoicePDFExporter;
+import com.bookworm.bookworm_middleware.services.ICustomerManager;
+import com.bookworm.bookworm_middleware.services.IInvoiceDetailsManager;
 import com.bookworm.bookworm_middleware.services.IInvoiceManager;
+import com.bookworm.bookworm_middleware.services.IProductManager;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
@@ -28,6 +32,15 @@ public class InvoiceController {
 
 	@Autowired
 	IInvoiceManager iservice;
+
+	@Autowired
+	IInvoiceDetailsManager idservice;
+
+	@Autowired
+	IProductManager pservice;
+
+	@Autowired
+	ICustomerManager cservice;
 
 	@GetMapping("/get/{id}")
 	public Optional<Invoice> getById(@PathVariable int id) {
@@ -51,10 +64,10 @@ public class InvoiceController {
 		iservice.deleteByInvoiceId(id);
 	}
 
-	@GetMapping("/pdf")
-	public String getMethodName() {
-		InvoicePDFExporter exporter = new InvoicePDFExporter();
-		exporter.generateInvoice();
+	@GetMapping("/pdf/{id}")
+	public String getMethodName(@PathVariable int id) {
+		InvoicePDFExporter exporter = new InvoicePDFExporter(pservice,cservice);
+		exporter.generateInvoice(idservice.getInvoiceDetailsByInvoiceId(id),iservice.getCustomerIdByInvoiceId(id));
 		return "Invoice PDF Generated";
 	}
 

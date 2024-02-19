@@ -76,5 +76,10 @@ public class ProductManagerImpl implements IProductManager {
 //		ProductRepo.updateById(product, id);
 //	}
 
+	@Override
+	public String getProductNamebyId(int id) {
+		return productRepo.findProductNameById(id);
+	}
+
    
 }

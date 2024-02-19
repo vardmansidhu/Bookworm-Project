@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Modal, Dropdown } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { FaShoppingCart } from "react-icons/fa";
+// import MyToast from "./MyToast";
 // import { Link } from "react-router-dom";
 import "../css/MyCard.css";
+// import { ToastContainer } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
+import toast, {Toaster} from 'react-hot-toast';
 
 export default function MyCard({ typeId, selectedLanguage }) {
   const [products, setProducts] = useState([]);
@@ -12,6 +18,8 @@ export default function MyCard({ typeId, selectedLanguage }) {
   const [cookies, setCookie] = useCookies(["cart"]);
   //   const [isHovered, setIsHovered] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
+
+  // const notify = () => toast("Wow so easy!");
 
   useEffect(() => {
     if (selectedLanguage == null) {
@@ -31,6 +39,8 @@ export default function MyCard({ typeId, selectedLanguage }) {
     setSelectedProduct(product);
     setShow(true);
   };
+
+  // const notify = () => toast("Hello Toast!");
 
   const addToCart = (productId, isRent, days) => {
     let cart = cookies.cart ? { ...cookies.cart } : { buy: [], rent: [] };
@@ -55,6 +65,11 @@ export default function MyCard({ typeId, selectedLanguage }) {
     alert("Successfully added to cart!");
   };
 
+  // const buyNow = (productId, isRent, days) => {
+  //   addToCart(productId, isRent, days);
+  //   notify();
+  // }
+
   const handleMouseEnter = (id) => {
     setHoveredCard(id);
   };
@@ -68,6 +83,8 @@ export default function MyCard({ typeId, selectedLanguage }) {
       className="d-flex align-items-center py-5 row row-cols-1 row row-cols-sm-2 row row-cols-md-3"
       fluid="sm"
     >
+      {/* <MyToast /> */}
+      {/* <Button onClick={notify}>Notify !</Button> */}
       {products.map((product) => {
         // Function to truncate the text to a certain number of words
         const truncateText = (text, limit) => {
@@ -153,8 +170,9 @@ export default function MyCard({ typeId, selectedLanguage }) {
                     >
                       Buy Now
                     </Button>
+                    <Toaster />
                     <Dropdown
-											style={{ display: "inline", marginLeft: "10px"}}
+											style={{ display: product.rentable ? "inline" : "none", marginLeft: "10px"}}
                       onSelect={(key) =>
                         addToCart(product.productId, true, key)
                       }

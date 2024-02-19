@@ -73,6 +73,11 @@ public class InvoiceManagerImpl implements IInvoiceManager {
 	}
 
 	@Override
+	public Integer getCustomerIdByInvoiceId(int invoiceId) {
+		return repo.findCustomerIdByInvoiceId(invoiceId);
+	}
+
+	@Override
 	@Transactional
 	public void createInvoiceAndDetails(InvoiceDto invoiceDto) {
 		System.out.println(invoiceDto);

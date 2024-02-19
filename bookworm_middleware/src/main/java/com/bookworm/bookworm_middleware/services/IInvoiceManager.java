@@ -27,4 +27,6 @@ public interface IInvoiceManager {
 
 	void createInvoiceAndDetails(InvoiceDto invoiceDto);
 
+	Integer getCustomerIdByInvoiceId(int invoiceId);
+
 }

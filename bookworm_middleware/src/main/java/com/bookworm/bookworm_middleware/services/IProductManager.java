@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.bookworm.bookworm_middleware.entities.Product;
 
+
 public interface IProductManager {
 	
 	public void addProduct(Product product);
@@ -26,5 +27,7 @@ public interface IProductManager {
 	List<Product> getLanguageAndType(int lang_id, int type_id);
 	
 	List<Product> getByGenre(int id);
+
+	String getProductNamebyId(int id);
 
 }

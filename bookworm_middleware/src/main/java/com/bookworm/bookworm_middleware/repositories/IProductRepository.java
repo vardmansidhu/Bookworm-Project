@@ -35,6 +35,9 @@ public interface IProductRepository extends JpaRepository<Product,Integer> {
 	@Query(value = "SELECT * FROM Product p WHERE p.language_id = :language_id AND p.type_id = :type_id", nativeQuery = true)
 	List<Product> findByProductLanguageAndType(@Param("language_id") int language_id, @Param("type_id") int type_id);
 
+	@Query(value = "SELECT p.product_eng_name FROM Product p WHERE p.product_id = :id", nativeQuery = true)
+	String findProductNameById(@Param("id") int id);
+
 //    @Modifying
 //    @Query("UPDATE Product p SET p.productName = :productName, p.productEngName = :productEngName, " +
 //            "p.typeId = :typeId, p.basePrice = :basePrice, p.specialCost = :specialCost, p.offerPrice = :offerPrice, " +

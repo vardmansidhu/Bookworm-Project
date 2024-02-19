@@ -44,4 +44,5 @@ public class InvoiceDetailsManagerImpl implements IInvoiceDetailsManager {
     public void deleteInvoiceDetails(int id) {
         repository.deleteById(id);
     }
+
 }

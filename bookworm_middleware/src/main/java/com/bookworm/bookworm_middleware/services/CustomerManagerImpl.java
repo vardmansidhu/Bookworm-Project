@@ -42,6 +42,11 @@ public class CustomerManagerImpl implements ICustomerManager {
 	}
 
 	@Override
+	public String getCustomerNameById(int id) {
+		return repository.findCustomerNameById(id);
+	}
+
+	@Override
 	public Customer authenticate(String email, String password) {
 		Customer customer = repository.findByCustomerEmail(email);
 		if (customer != null && customer.getPassword().equals(password))

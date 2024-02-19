@@ -53,6 +53,8 @@ export default function Cart() {
   //Print all products in products state
   // console.log(products);
 
+  console.log(totalAmount);
+
   const handlePay = () => {
     if (!cookies.user) {
       alert("You have to login first!");
@@ -81,13 +83,13 @@ export default function Cart() {
       setProducts([]);
       setCookie("cart", [], { path: "/" });
 
-      
+      // let currPrice = product.basePrice;
 
       const invoiceDetailsList = products.map(product => ({
         // "invDtlId": 1,
         // "quantity": 1,
-        basePrice: totalBasePrice,
-        sellingPrice: (totalBasePrice + (totalBasePrice * 0.18) + (totalBasePrice * 0.2)).toFixed(2),
+        basePrice: product.basePrice,
+        sellingPrice: (parseFloat(product.basePrice + (product.basePrice * 0.18) + (product.basePrice * 0.2))).toFixed(2),
         rentingDays: product.isRent ? rentArray.find(item => item.id == product.productId).days : null,
         productId: product.productId,
         transactionTypeId: product.isRent ? 2 : 1

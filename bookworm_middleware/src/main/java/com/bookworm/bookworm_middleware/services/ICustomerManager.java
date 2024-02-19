@@ -12,6 +12,7 @@ public interface ICustomerManager {
 	void delete(int id);
 	Optional<Customer> getById(int id);
 	List<Customer> getAllCustomers();
+	String getCustomerNameById(int id);
 	
 	Customer authenticate(String email, String password);
 }

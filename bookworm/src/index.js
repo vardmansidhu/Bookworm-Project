@@ -4,7 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-// import { ToastContainer } from 'react-bootstrap';
 
 import './index.css';
 import App from './App';
@@ -16,17 +15,13 @@ import NoPage from './components/NoPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Cart from './components/Cart';
-// import { ToastContainer } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-  {/* <ToastContainer /> */}
     <Routes>
       <Route path="/" element={<App />}>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/" element={<ToastContainer />} /> */}
         <Route path="/home" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />

@@ -166,7 +166,11 @@ public class InvoicePDFExporter {
             totalTable.setSpacingBefore(10f); // Space before table
 
             totalTable.addCell("Total");
-            totalTable.addCell(String.valueOf(total));
+
+            PdfPCell totalCell = new PdfPCell(new Paragraph("₹" + String.valueOf(total)));
+            totalCell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+
+            totalTable.addCell(totalCell);
 
             document.add(totalTable);
 

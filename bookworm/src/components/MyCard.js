@@ -2,14 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Modal, Dropdown } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { FaShoppingCart } from "react-icons/fa";
-// import MyToast from "./MyToast";
-// import { Link } from "react-router-dom";
 import "../css/MyCard.css";
-// import { ToastContainer } from 'react-toastify';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-
-import toast, {Toaster} from 'react-hot-toast';
 
 export default function MyCard({ typeId, selectedLanguage }) {
   const [products, setProducts] = useState([]);
@@ -170,7 +163,6 @@ export default function MyCard({ typeId, selectedLanguage }) {
                     >
                       Buy Now
                     </Button>
-                    <Toaster />
                     <Dropdown
 											style={{ display: product.rentable ? "inline" : "none", marginLeft: "10px"}}
                       onSelect={(key) =>

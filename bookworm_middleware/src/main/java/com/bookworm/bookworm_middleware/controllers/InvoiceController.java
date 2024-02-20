@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,14 +52,13 @@ public class InvoiceController {
 	}
 
 	@PostMapping("/add")
-	public void addInvoice(@RequestBody InvoiceDto invoiceDto) {
-		System.out.println(invoiceDto);
+	public int addInvoice(@RequestBody InvoiceDto invoiceDto) {
+		// System.out.println(invoiceDto);
 		LocalDate ldate = LocalDate.now();
 		// System.out.println(inv);
 		Date date = Date.from(ldate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		invoiceDto.setInvoiceDate(date);
-		iservice.createInvoiceAndDetails(invoiceDto);
-		// return invoiceDto.getInvoiceid();
+		return iservice.createInvoiceAndDetails(invoiceDto);
 	}
 
 	@DeleteMapping("/delete/{id}")
@@ -65,10 +67,13 @@ public class InvoiceController {
 	}
 
 	@GetMapping("/pdf/{id}")
-	public String getMethodName(@PathVariable int id) {
+	public ResponseEntity<ByteArrayResource> getMethodName(@PathVariable int id) {
 		InvoicePDFExporter exporter = new InvoicePDFExporter(pservice,cservice);
-		exporter.generateInvoice(idservice.getInvoiceDetailsByInvoiceId(id),iservice.getCustomerIdByInvoiceId(id));
-		return "Invoice PDF Generated";
+		ByteArrayResource resource =  exporter.generateInvoice(idservice.getInvoiceDetailsByInvoiceId(id),iservice.getCustomerIdByInvoiceId(id));
+		// return "Invoice PDF Generated";
+		return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf")
+                    .body(resource);
 	}
 
 }

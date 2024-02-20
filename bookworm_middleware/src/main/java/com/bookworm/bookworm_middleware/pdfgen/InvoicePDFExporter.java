@@ -1,10 +1,14 @@
 package com.bookworm.bookworm_middleware.pdfgen;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Component;
 
 import com.bookworm.bookworm_middleware.entities.InvoiceDetails;
@@ -38,11 +42,20 @@ public class InvoicePDFExporter {
         this.customerManager = customerManager;
     }
 
-    public void generateInvoice(List<InvoiceDetails> invoiceDetails, int customerId) {
-
-        Document document = new Document();
+    public ByteArrayResource generateInvoice(List<InvoiceDetails> invoiceDetails, int customerId) {
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("invoice.pdf"));
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            Document document = new Document();
+            PdfWriter.getInstance(document, out);
+
+            LocalDate currenDate = LocalDate.now();
+            // String dest = "invoice_" + currenDate.toEpochSecond(LocalTime.now(), ZoneOffset.of("Z")) + ".pdf";
+
+            // String dest = "invoice_" + invoiceDetails.get(0).getInvoice() + ".pdf";
+
+            // System.out.println("Invoice PDF Path: " + dest);
+
+            // PdfWriter.getInstance(document, new FileOutputStream(dest));
             document.open();
             // document.add(new Paragraph("Hello World!"));
 
@@ -77,8 +90,7 @@ public class InvoicePDFExporter {
             customerTable.setWidthPercentage(100); // Width 100%
             customerTable.setSpacingBefore(10f); // Space before table
             customerTable.setSpacingAfter(10f); // Space after table
-
-            LocalDate currenDate = LocalDate.now();
+            
 
             PdfPCell name = new PdfPCell(new Paragraph(customerManager.getCustomerNameById(customerId)));
             name.setBorder(PdfPCell.NO_BORDER);
@@ -189,10 +201,16 @@ public class InvoicePDFExporter {
 
             document.close();
 
+            // ByteArrayResource resource = new ByteArrayResource(out.toByteArray());
+
+            return new ByteArrayResource(out.toByteArray());
+
             // document.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return null;
     }
 
 }

@@ -25,7 +25,7 @@ public interface IInvoiceManager {
 
 	void deleteByInvoiceDate(Date date);
 
-	void createInvoiceAndDetails(InvoiceDto invoiceDto);
+	int createInvoiceAndDetails(InvoiceDto invoiceDto);
 
 	Integer getCustomerIdByInvoiceId(int invoiceId);
 

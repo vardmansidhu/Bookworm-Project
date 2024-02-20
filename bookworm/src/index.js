@@ -15,6 +15,7 @@ import NoPage from './components/NoPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Cart from './components/Cart';
+import ThankYou from './components/ThankYou';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,6 +30,7 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/thankyou" element={<ThankYou />} />
         <Route path="*" element={<NoPage />} />
       </Route>
     </Routes>

@@ -53,7 +53,7 @@ export default function Cart() {
   //Print all products in products state
   // console.log(products);
 
-  console.log(totalAmount);
+  // console.log(totalAmount);
 
   const handlePay = () => {
     if (!cookies.user) {
@@ -120,6 +120,7 @@ export default function Cart() {
       .then(data => {
           if (data) {
               console.log(data);
+              navigate("/thankyou", { state: { invoiceId: data, purchasedProducts: products } });
           }
       })
       .catch((error) => console.log(error));
@@ -127,6 +128,7 @@ export default function Cart() {
     } else {
       alert("Your order has been cancelled.");
     }
+    
   };
 
 const removeFromCart = (productId, isRent) => {

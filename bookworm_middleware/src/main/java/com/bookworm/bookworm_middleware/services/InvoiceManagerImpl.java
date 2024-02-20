@@ -79,7 +79,7 @@ public class InvoiceManagerImpl implements IInvoiceManager {
 
 	@Override
 	@Transactional
-	public void createInvoiceAndDetails(InvoiceDto invoiceDto) {
+	public int createInvoiceAndDetails(InvoiceDto invoiceDto) {
 		System.out.println(invoiceDto);
 		// Create and save the Invoice
 		Invoice invoice = new Invoice();
@@ -104,6 +104,8 @@ public class InvoiceManagerImpl implements IInvoiceManager {
 			invoiceDetails.setRentingDays(detailDto.getRentingDays());
 			invoiceDetailsManager.addInvoiceDetails(invoiceDetails);
 		}
+
+		return savedInvoice.getInvoiceid();
 	}
 
 }

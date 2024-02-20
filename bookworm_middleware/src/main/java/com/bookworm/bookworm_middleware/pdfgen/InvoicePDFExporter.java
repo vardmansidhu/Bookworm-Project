@@ -70,6 +70,7 @@ public class InvoicePDFExporter {
 
             Font headingFont = new Font(Font.FontFamily.TIMES_ROMAN, 20.0f, Font.BOLD, BaseColor.BLACK);
             Font footerFont = new Font(Font.FontFamily.TIMES_ROMAN, 20.0f, Font.NORMAL, BaseColor.BLACK);
+            Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
 
             PdfPCell cell1 = new PdfPCell(new Paragraph("Bookworm", headingFont));
             cell1.setBorder(PdfPCell.NO_BORDER);
@@ -92,12 +93,12 @@ public class InvoicePDFExporter {
             customerTable.setSpacingAfter(10f); // Space after table
             
 
-            PdfPCell name = new PdfPCell(new Paragraph(customerManager.getCustomerNameById(customerId)));
+            PdfPCell name = new PdfPCell(new Paragraph("Customer Name: " + customerManager.getCustomerNameById(customerId),boldFont));
             name.setBorder(PdfPCell.NO_BORDER);
             name.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             name.setFixedHeight(10f);
 
-            PdfPCell date = new PdfPCell(new Paragraph(currenDate.toString()));
+            PdfPCell date = new PdfPCell(new Paragraph("Date: " + currenDate.toString(),boldFont));
             date.setBorder(PdfPCell.NO_BORDER);
             date.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
             name.setFixedHeight(10f);
@@ -160,15 +161,32 @@ public class InvoicePDFExporter {
                     invoiceDetail.setRentingDays(0);
                 }
                 
-                productTable.addCell(String.valueOf(count++));
-                productTable.addCell(String.valueOf(productManager.getProductNamebyId(invoiceDetail.getProduct())));
-                // productTable.addCell(String.valueOf(invoiceDetail.getTransactionType()));
+                PdfPCell countCell = new PdfPCell(new Paragraph(String.valueOf(count++)));
+                countCell.setPadding(10f);
+                productTable.addCell(countCell);
+
+                PdfPCell nameCell = new PdfPCell(new Paragraph(String.valueOf(productManager.getProductNamebyId(invoiceDetail.getProduct()))));
+                nameCell.setPadding(10f);
+                productTable.addCell(nameCell);
+
+                String purchaseType;
+
                 if(invoiceDetail.getTransactionType() == 1)
-                    productTable.addCell("Purchase");
+                    purchaseType = "Purchase";
                 else
-                    productTable.addCell("Rent");
-                productTable.addCell(invoiceDetail.getRentingDays().toString());
-                productTable.addCell(String.valueOf(Math.round(invoiceDetail.getSellingPrice() * 100.0) / 100.0));
+                    purchaseType = "Rent";
+
+                PdfPCell typeCell = new PdfPCell(new Paragraph(purchaseType));
+                typeCell.setPadding(10f);
+                productTable.addCell(typeCell);
+
+                PdfPCell rentCell = new PdfPCell(new Paragraph(invoiceDetail.getRentingDays().toString()));
+                rentCell.setPadding(10f);
+                productTable.addCell(rentCell);
+
+                PdfPCell priceCell = new PdfPCell(new Paragraph(String.valueOf(Math.round(invoiceDetail.getSellingPrice() * 100.0) / 100.0)));
+                priceCell.setPadding(10f);
+                productTable.addCell(priceCell);
             }
 
             document.add(productTable);
@@ -177,9 +195,14 @@ public class InvoicePDFExporter {
             totalTable.setWidthPercentage(100); // Width 100%
             totalTable.setSpacingBefore(10f); // Space before table
 
-            totalTable.addCell("Total");
+            PdfPCell totalStringCell = new PdfPCell(new Paragraph("Total",boldFont));
+            totalStringCell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            totalStringCell.setPadding(10f);
 
-            PdfPCell totalCell = new PdfPCell(new Paragraph("₹" + String.valueOf(total)));
+            totalTable.addCell(totalStringCell);
+
+            PdfPCell totalCell = new PdfPCell(new Paragraph("₹" + String.valueOf(total),boldFont));
+            totalCell.setPadding(10f);
             totalCell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
 
             totalTable.addCell(totalCell);

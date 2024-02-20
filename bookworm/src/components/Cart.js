@@ -89,7 +89,8 @@ export default function Cart() {
         // "invDtlId": 1,
         // "quantity": 1,
         basePrice: product.basePrice,
-        sellingPrice: (parseFloat(product.basePrice + (product.basePrice * 0.18) + (product.basePrice * 0.2))).toFixed(2),
+        // sellingPrice: (parseFloat(product.specialCost + (product.specialCost * 0.18) + (product.specialCost * 0.2))).toFixed(2),
+        sellingPrice: product.specialCost,
         rentingDays: product.isRent ? rentArray.find(item => item.id == product.productId).days : null,
         productId: product.productId,
         transactionTypeId: product.isRent ? 2 : 1
@@ -169,7 +170,7 @@ const removeFromCart = (productId, isRent) => {
                         </small>
                       </div>
                       <span className="text-body-secondary">
-                        ₹{product.basePrice}
+                        ₹{product.specialCost}
                       </span>
                       <Button
                         variant="danger"

@@ -26,7 +26,7 @@ import com.bookworm.bookworm_middleware.services.IInvoiceDetailsManager;
 import com.bookworm.bookworm_middleware.services.IInvoiceManager;
 import com.bookworm.bookworm_middleware.services.IProductManager;
 
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @CrossOrigin("*")
@@ -68,12 +68,13 @@ public class InvoiceController {
 
 	@GetMapping("/pdf/{id}")
 	public ResponseEntity<ByteArrayResource> getMethodName(@PathVariable int id) {
-		InvoicePDFExporter exporter = new InvoicePDFExporter(pservice,cservice);
-		ByteArrayResource resource =  exporter.generateInvoice(idservice.getInvoiceDetailsByInvoiceId(id),iservice.getCustomerIdByInvoiceId(id));
+		InvoicePDFExporter exporter = new InvoicePDFExporter(pservice, cservice);
+		ByteArrayResource resource = exporter.generateInvoice(idservice.getInvoiceDetailsByInvoiceId(id),
+				iservice.getCustomerIdByInvoiceId(id));
 		// return "Invoice PDF Generated";
 		return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf")
-                    .body(resource);
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf")
+				.body(resource);
 	}
 
 }

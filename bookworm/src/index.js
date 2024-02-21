@@ -19,6 +19,7 @@ import Cart from './components/Cart';
 import ThankYou from './components/ThankYou';
 import Myshelf from './components/Myshelf';
 import User from './components/User';
+import MyAccount from './components/MyAccount';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -35,6 +36,7 @@ root.render(
         <Route path="/cart" element={<Cart />} />
         <Route path='/myshelf' element={<Myshelf />} />
         <Route path="/thankyou" element={<ThankYou />} />
+        <Route path="/myaccount" element={<MyAccount />} />
         <Route path="*" element={<NoPage />} />
       </Route>
     </Routes>

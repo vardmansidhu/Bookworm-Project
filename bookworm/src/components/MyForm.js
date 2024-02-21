@@ -12,6 +12,8 @@ const MyForm = () => {
 
   const navigate = useNavigate();
 
+  // const [exists, setExists] = useState(false);
+
   const onSubmit = (formdata) => {
     // const languagepreferences = [formdata.language1, formdata.language2, formdata.language3];
     // const genrepreferences = [formdata.genre1, formdata.genre2, formdata.genre3];
@@ -32,15 +34,34 @@ const MyForm = () => {
     //   "preferences": preferences
     // }
 
-    fetch("http://localhost:8080/api/customer/add", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formdata)
-    })
-      .then(res => alert("Registration Successful"), err => alert("Registration Not Successful"))
-      .then(()=>navigate('/login'))
+    // fetch("http://localhost:8080/api/customer/add", {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(formdata)
+    // })
+    //   .then(res => alert("Registration Successful"), err => alert("Registration Not Successful"))
+    //   .then(()=>navigate('/login'))
+
+      fetch("http://localhost:8080/api/customer/exists?email=" + formdata.customerEmail)
+        .then(response => response.json())
+        .then(data => {
+          if (data) {
+            alert("User already exists");
+          }else{
+            // console.log(exists);
+            fetch("http://localhost:8080/api/customer/add", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formdata)
+          })
+            .then(res => alert("Registration Successful"), err => alert("Registration Not Successful"))
+            .then(()=>navigate('/login'))
+        }
+        });
   };
 
   return (
@@ -78,7 +99,13 @@ const MyForm = () => {
               )}
               name="password"
               control={control}
-              rules={{ required: 'Please enter your password' }}
+              rules={{
+                required: 'Password is required',
+                minLength: {
+                  value: 8,
+                  message: 'Password must be at least 8 characters'
+                }
+              }}
             />
             <Form.Control.Feedback type="invalid">
               {errors.password && errors.password.message}
@@ -139,7 +166,13 @@ const MyForm = () => {
               )}
               name="contactNo"
               control={control}
-              rules={{ pattern: /^\d+$/, message: 'Invalid contact number' }}
+              rules={{
+                required: 'Contact number is required',
+                pattern: {
+                  value: /^\d{10}$/,
+                  message: 'Contact number must be 10 digits and numeric'
+                }
+              }}
             />
             <Form.Control.Feedback type="invalid">
               {errors.contactNo && errors.contactNo.message}
@@ -159,6 +192,19 @@ const MyForm = () => {
               )}
               name="dob"
               control={control}
+              rules={{
+                required: 'Date of birth is required',
+                validate: (value) => {
+                  const today = new Date();
+                  const birthDate = new Date(value);
+                  const age = today.getFullYear() - birthDate.getFullYear();
+                  const m = today.getMonth() - birthDate.getMonth();
+                  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                  }
+                  return age >= 13 || 'You must be at least 13 years old';
+                }
+              }}
             />
             <Form.Control.Feedback type="invalid">
               {errors.dob && errors.dob.message}

@@ -3,33 +3,74 @@ import { Link } from 'react-router-dom';
 
 function Signup() {
   const [customer, setCustomer] = useState({});
+  // const [errors, setErrors] = useState({});
+  const [exists, setExists] = useState(false);
+
+  // const validateFields = () => {
+  //   let tempErrors = {};
+
+  //   // Add validation checks for each field
+  //   if (!customer.customerName) tempErrors.customerName = "Full Name is required.";
+  //   if (!customer.customerEmail) tempErrors.customerEmail = "Email is required.";
+
+  //   // Check that mobile number is 10 digits
+  //   if (!customer.contactNo) {
+  //     tempErrors.contactNo = "Mobile Number is required.";
+  //   } else if (customer.contactNo.length !== 10) {
+  //     tempErrors.contactNo = "Mobile Number must be 10 digits.";
+  //   }
+
+  //   if (!customer.dob) {tempErrors.dob = "Date of Birth is required.";}
+  //   else if(new Date(customer.dob) > new Date()) {tempErrors.dob = "Date of Birth cannot be in the future.";}
+  //   else if(new Date().getFullYear() - new Date(customer.dob).getFullYear() < 13) {tempErrors.dob = "You must be at least 13 years old to register.";}
+
+  //   // Check that password is at least 8 characters long
+  //   if (!customer.password) {
+  //     tempErrors.password = "Password is required.";
+  //   } else if (customer.password.length < 8) {
+  //     tempErrors.password = "Password must be at least 8 characters long.";
+  //   }
+
+  //   if (customer.password !== customer.confirmPassword) tempErrors.confirmPassword = "Passwords do not match.";
+
+  //   setErrors(tempErrors);
+
+  //   // If no errors, return true, else return false
+  //   return Object.keys(tempErrors).length === 0;
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCustomer(values => ({
-      ...values,
+    setCustomer(customer => ({
+      ...customer,
       [name]: value,
     }));
   };
 
   const handleFormSubmit = (e) => {
-    let data = JSON.stringify(customer);
-    alert(data);
-
-    fetch("http://localhost:8080/api/customer/add", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: data 
-    })
-
     e.preventDefault();
+    
+      let data = JSON.stringify(customer);
+      alert(data);
+
+      fetch("http://localhost:8080/api/customer/exists?email=" + customer.customerEmail).then(response => response.json()).then(data => setExists(data));
+
+      if (exists) {
+        alert("User already exists");
+      }else{
+      fetch("http://localhost:8080/api/customer/add", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: data 
+      })
+    }
   };
 
-  const handlePasswordChange = (e) => {
-    if (customer.password !== customer.confirmPassword) {
-      window.alert('Passwords do not match');
-    }
-  }
+  // const handlePasswordChange = (e) => {
+  //   if (customer.password !== customer.confirmPassword) {
+  //     window.alert('Passwords do not match');
+  //   }
+  // }
 
   return (
     <div className='signup template d-flex justify-content-center align-items-center vh-100 bg-primary '>
@@ -44,9 +85,10 @@ function Signup() {
               name="customerName"
               placeholder='Enter Full Name'
               className='form-control'
-              value={customer.fullName}
+              value={customer.customerName}
               onChange={handleInputChange}
             />
+            {/* {errors.customerName && <p className='text-danger'>{errors.customerName}</p>} */}
           </div>
 
           <div className='mb-2'>
@@ -56,9 +98,10 @@ function Signup() {
               name="customerEmail"
               placeholder='Enter E-mail Address'
               className='form-control'
-              value={customer.email}
+              value={customer.customerEmail}
               onChange={handleInputChange}
             />
+            {/* {errors.customerEmail && <p className='text-danger'>{errors.customerEmail}</p>} */}
           </div>
 
           <div className='mb-2'>
@@ -68,10 +111,12 @@ function Signup() {
               name="contactNo"
               placeholder='Enter Mobile No'
               className='form-control'
-              value={customer.mobile}
+              value={customer.contactNo}
               onChange={handleInputChange}
             />
+            {/* {errors.contactNo && <p className='text-danger'>{errors.contactNo}</p>} */}
           </div>
+
           <div className='mb-2'>
             <label htmlFor="Date-Of-Birth">Date of Birth</label>
             <input
@@ -82,6 +127,7 @@ function Signup() {
               value={customer.dob}
               onChange={handleInputChange}
             />
+            {/* {errors.dob && <p className='text-danger'>{errors.dob}</p>} */}
           </div>
 
           <div className='mb-2'>
@@ -94,6 +140,7 @@ function Signup() {
               value={customer.password}
               onChange={handleInputChange}
             />
+            {/* {errors.password && <p className='text-danger'>{errors.password}</p>} */}
           </div>
 
           <div className='mb-2'>
@@ -106,6 +153,7 @@ function Signup() {
               value={customer.confirmPassword}
             //onChange={handlePasswordChange}
             />
+            {/* {errors.confirmPassword && <p className='text-danger'>{errors.confirmPassword}</p>} */}
           </div>
 
           <div className='d-grid'>

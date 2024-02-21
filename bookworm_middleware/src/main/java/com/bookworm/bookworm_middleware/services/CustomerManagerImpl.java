@@ -55,4 +55,13 @@ public class CustomerManagerImpl implements ICustomerManager {
 			return null;
 	}
 
+	@Override
+	public boolean isEmailExists(String email) {
+		Customer customer = repository.findByCustomerEmail(email);
+		if (customer != null)
+			return true;
+		else
+			return false;
+	}
+
 }

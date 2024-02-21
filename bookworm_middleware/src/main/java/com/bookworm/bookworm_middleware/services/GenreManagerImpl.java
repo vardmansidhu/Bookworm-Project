@@ -10,15 +10,15 @@ import com.bookworm.bookworm_middleware.entities.Genre;
 import com.bookworm.bookworm_middleware.repositories.IGenreRepository;
 
 @Service
-public class GenreManagerImpl implements IGenreManager{
-	
+public class GenreManagerImpl implements IGenreManager {
+
 	@Autowired
-    private IGenreRepository repository;
+	private IGenreRepository repository;
 
 	@Override
 	public void addGenre(Genre genre) {
 		repository.save(genre);
-		
+
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class GenreManagerImpl implements IGenreManager{
 
 	@Override
 	public void deleteGenre(Integer id) {
-        repository.deleteById(id);		
+		repository.deleteById(id);
 	}
 
 	@Override
@@ -38,12 +38,17 @@ public class GenreManagerImpl implements IGenreManager{
 
 	@Override
 	public Optional<Genre> getGenre(Integer id) {
-        return repository.findById(id);
+		return repository.findById(id);
 	}
 
 	@Override
 	public Optional<Genre> getGenreByName(String name) {
 		return repository.findByGenreDesc(name);
+	}
+
+	@Override
+	public List<Genre> getGenreByLanguageId(int id) {
+		return repository.findByLanguageId(id);
 	}
 
 }

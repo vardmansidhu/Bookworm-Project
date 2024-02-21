@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.bookworm.bookworm_middleware.entities.Genre;
 
 import jakarta.transaction.Transactional;
+import java.util.List;
+import com.bookworm.bookworm_middleware.entities.Language;
 
 @Repository
 public interface IGenreRepository extends JpaRepository<Genre, Integer> {
@@ -23,4 +25,6 @@ public interface IGenreRepository extends JpaRepository<Genre, Integer> {
 	@Query("select g from Genre g where g.genreDesc = :genredesc ")
 	Optional<Genre> findByGenreDesc(@Param("genredesc") String genreDesc);
 
+	@Query("select g from Genre g where g.languageId.languageId = :languageId ")
+	List<Genre> findByLanguageId(int languageId);
 }

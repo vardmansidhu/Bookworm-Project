@@ -1,16 +1,29 @@
 import React from 'react'
 import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaHome, FaProductHunt, FaBook, FaCartPlus, FaLayerGroup, FaBookReader, FaUserCircle, FaInfoCircle, FaPhone, FaComments, FaSignInAlt } from 'react-icons/fa';
+import { useCookies } from 'react-cookie';
 
 export default function MyNavbar() {
+    const [cookies, setCookie] = useCookies(["user"]);
+    const navigate = useNavigate();
+
+    const handlelogout = () => {
+        fetch("http://localhost:8080/api/customer/logout")
+            .then(() => {
+                alert("Logged Out");
+                setCookie("user", null, { path: "/" });  // Remove the user cookie
+                navigate('/');
+            })
+    }
+
     return (
         <div>
             <Navbar bg="light" variant="" expand="md" className='px-4'>
                 <Navbar.Brand as={Link} to="/">
                     <img
                         alt="logo"
-                        src="/logo.png"
+                        src="/images/logo.svg"
                         width="30"
                         height="30"
                         className="d-inline-block align-top"
@@ -22,23 +35,41 @@ export default function MyNavbar() {
                     <Nav>
                         <Nav.Link as={Link} to="/"><FaHome /> Home</Nav.Link>
                         <Nav.Link as={Link} to="/products"><FaProductHunt /> Products</Nav.Link>
-                        <Nav.Link as={Link} to="/lendinglibrary"><FaBook /> Lending Library</Nav.Link>
-                        <Nav.Link as={Link} to="/myshelf"><FaLayerGroup /> My Shelf</Nav.Link>
-                        <Nav.Link as={Link} to="/mylibrary"><FaBookReader /> My Library</Nav.Link>
+                        {/* <Nav.Link as={Link} to="/lendinglibrary"><FaBook /> Lending Library</Nav.Link> */}
+                        {cookies.user ? (
+                            <Nav.Link as={Link} to="/myshelf"><FaLayerGroup /> My Shelf</Nav.Link>
+                        ) : (
+                            <></>
+                        )}
+
+                        {/* <Nav.Link as={Link} to="/mylibrary"><FaBookReader /> My Library</Nav.Link> */}
                         <NavDropdown title="More Options" id="collapsible-nav-dropdown">
-                            <Nav.Link as={Link} to="/myaccount"><FaUserCircle /> My Account</Nav.Link>
-                            <NavDropdown.Divider />
+                            {cookies.user ? (
+                                <>
+                                    <Nav.Link as={Link} to="/myaccount"><FaUserCircle /> My Account</Nav.Link>
+                                    <NavDropdown.Divider />
+                                </>
+                            ) : (
+                                <></>
+                            )}
+
                             <Nav.Link as={Link} to="/about"><FaInfoCircle /> About Us</Nav.Link>
                             <Nav.Link as={Link} to="/contact"><FaPhone /> Contact Us</Nav.Link>
                             <Nav.Link as={Link} to="/feedback"><FaComments /> Feedback</Nav.Link>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
-                <Nav.Link as={Link} style={{padding: '10px', marginRight: '20px'}} to="/cart"><FaCartPlus /> Cart</Nav.Link>
-                
-                <Nav.Link as={Link} to="/login">
-                    <Button style={{color: 'black', backgroundColor: 'white', border: '0px'}}><FaSignInAlt /> Login/Register</Button>
-                </Nav.Link>
+                <Nav.Link as={Link} style={{ padding: '10px', marginRight: '20px' }} to="/cart"><FaCartPlus /> Cart</Nav.Link>
+
+                {!cookies.user ?
+                    (<Nav.Link as={Link} to="/login">
+                        <Button style={{ color: 'black', backgroundColor: 'white', border: '0px' }}><FaSignInAlt /> Login/Register</Button>
+                    </Nav.Link>)
+                    :
+                    (
+                        <Button onClick={handlelogout} style={{ color: 'black', backgroundColor: 'white', border: '0px' }}><FaSignInAlt /> Logout</Button>
+                    )
+                }
             </Navbar>
         </div>
     )

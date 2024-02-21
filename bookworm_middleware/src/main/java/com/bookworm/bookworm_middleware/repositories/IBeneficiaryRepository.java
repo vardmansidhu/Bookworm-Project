@@ -9,7 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.bookworm.bookworm_middleware.entities.Beneficiary;
 
 import jakarta.transaction.Transactional;
+
 @Repository
-public interface BeneficiaryMangerRepository extends JpaRepository<Beneficiary,Integer> {
+public interface IBeneficiaryRepository extends JpaRepository<Beneficiary, Integer> {
+
+	@Modifying
+	@Transactional
+	@Query(value = "UPDATE Beneficiary b SET b.amount = :amount WHERE b.benId = :benId", nativeQuery = true)
+	void updateAmount(@Param("benId") Integer benId, @Param("amount") Double amount);
 
 }

@@ -10,12 +10,15 @@ import App from './App';
 import Home from './components/Home';
 import Contact from './components/Contact';
 import Products from './components/Products';
-import About from './components/About';
+// import About from './components/About';
+import AboutUs from './components/AboutUs';
 import NoPage from './components/NoPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Cart from './components/Cart';
 import ThankYou from './components/ThankYou';
+import Myshelf from './components/Myshelf';
+import User from './components/User';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,11 +28,12 @@ root.render(
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/products" element={<Products />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<User />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path='/myshelf' element={<Myshelf />} />
         <Route path="/thankyou" element={<ThankYou />} />
         <Route path="*" element={<NoPage />} />
       </Route>

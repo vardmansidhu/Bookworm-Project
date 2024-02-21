@@ -49,7 +49,8 @@ public class InvoicePDFExporter {
             PdfWriter.getInstance(document, out);
 
             LocalDate currenDate = LocalDate.now();
-            // String dest = "invoice_" + currenDate.toEpochSecond(LocalTime.now(), ZoneOffset.of("Z")) + ".pdf";
+            // String dest = "invoice_" + currenDate.toEpochSecond(LocalTime.now(),
+            // ZoneOffset.of("Z")) + ".pdf";
 
             // String dest = "invoice_" + invoiceDetails.get(0).getInvoice() + ".pdf";
 
@@ -91,14 +92,14 @@ public class InvoicePDFExporter {
             customerTable.setWidthPercentage(100); // Width 100%
             customerTable.setSpacingBefore(10f); // Space before table
             customerTable.setSpacingAfter(10f); // Space after table
-            
 
-            PdfPCell name = new PdfPCell(new Paragraph("Customer Name: " + customerManager.getCustomerNameById(customerId),boldFont));
+            PdfPCell name = new PdfPCell(
+                    new Paragraph("Customer Name: " + customerManager.getCustomerNameById(customerId), boldFont));
             name.setBorder(PdfPCell.NO_BORDER);
             name.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             name.setFixedHeight(10f);
 
-            PdfPCell date = new PdfPCell(new Paragraph("Date: " + currenDate.toString(),boldFont));
+            PdfPCell date = new PdfPCell(new Paragraph("Date: " + currenDate.toString(), boldFont));
             date.setBorder(PdfPCell.NO_BORDER);
             date.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
             name.setFixedHeight(10f);
@@ -114,28 +115,26 @@ public class InvoicePDFExporter {
             productTable.setSpacingBefore(10f); // Space before table
             productTable.setSpacingAfter(10f); // Space after table
 
-            //Set Padding
-            PdfPCell column1 = new PdfPCell(new Paragraph("Product No."));
+            // Set Padding
+            PdfPCell column1 = new PdfPCell(new Paragraph("Product No.", boldFont));
             column1.setPadding(10);
             productTable.addCell(column1);
 
-            PdfPCell column2 = new PdfPCell(new Paragraph("Product Name"));
+            PdfPCell column2 = new PdfPCell(new Paragraph("Product Name", boldFont));
             column2.setPadding(10);
             productTable.addCell(column2);
 
-            PdfPCell column3 = new PdfPCell(new Paragraph("Transaction Type"));
+            PdfPCell column3 = new PdfPCell(new Paragraph("Transaction Type", boldFont));
             column3.setPadding(10);
             productTable.addCell(column3);
 
-            PdfPCell column4 = new PdfPCell(new Paragraph("Renting Days"));
+            PdfPCell column4 = new PdfPCell(new Paragraph("Renting Days", boldFont));
             column4.setPadding(10);
             productTable.addCell(column4);
 
-            PdfPCell column5 = new PdfPCell(new Paragraph("Price"));
+            PdfPCell column5 = new PdfPCell(new Paragraph("Price", boldFont));
             column5.setPadding(10);
             productTable.addCell(column5);
-
-            
 
             // productTable.addCell("Product ID");
             // productTable.addCell("Product Name");
@@ -149,29 +148,30 @@ public class InvoicePDFExporter {
             // productTable.addCell("Rent");
             // productTable.addCell("30");
             // productTable.addCell("$100");
-            
+
             int count = 1;
             double total = 0;
 
             for (InvoiceDetails invoiceDetail : invoiceDetails) {
 
                 total += Math.round(invoiceDetail.getSellingPrice() * 100.0 / 100.0);
-                
-                if(invoiceDetail.getRentingDays() == null) {
+
+                if (invoiceDetail.getRentingDays() == null) {
                     invoiceDetail.setRentingDays(0);
                 }
-                
+
                 PdfPCell countCell = new PdfPCell(new Paragraph(String.valueOf(count++)));
                 countCell.setPadding(10f);
                 productTable.addCell(countCell);
 
-                PdfPCell nameCell = new PdfPCell(new Paragraph(String.valueOf(productManager.getProductNamebyId(invoiceDetail.getProduct()))));
+                PdfPCell nameCell = new PdfPCell(
+                        new Paragraph(String.valueOf(productManager.getProductNamebyId(invoiceDetail.getProduct()))));
                 nameCell.setPadding(10f);
                 productTable.addCell(nameCell);
 
                 String purchaseType;
 
-                if(invoiceDetail.getTransactionType() == 1)
+                if (invoiceDetail.getTransactionType() == 1)
                     purchaseType = "Purchase";
                 else
                     purchaseType = "Rent";
@@ -184,7 +184,8 @@ public class InvoicePDFExporter {
                 rentCell.setPadding(10f);
                 productTable.addCell(rentCell);
 
-                PdfPCell priceCell = new PdfPCell(new Paragraph(String.valueOf(Math.round(invoiceDetail.getSellingPrice() * 100.0) / 100.0)));
+                PdfPCell priceCell = new PdfPCell(
+                        new Paragraph(String.valueOf(Math.round(invoiceDetail.getSellingPrice() * 100.0) / 100.0)));
                 priceCell.setPadding(10f);
                 productTable.addCell(priceCell);
             }
@@ -195,13 +196,13 @@ public class InvoicePDFExporter {
             totalTable.setWidthPercentage(100); // Width 100%
             totalTable.setSpacingBefore(10f); // Space before table
 
-            PdfPCell totalStringCell = new PdfPCell(new Paragraph("Total",boldFont));
+            PdfPCell totalStringCell = new PdfPCell(new Paragraph("Total", boldFont));
             totalStringCell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
             totalStringCell.setPadding(10f);
 
             totalTable.addCell(totalStringCell);
 
-            PdfPCell totalCell = new PdfPCell(new Paragraph("₹" + String.valueOf(total),boldFont));
+            PdfPCell totalCell = new PdfPCell(new Paragraph("₹" + String.valueOf(total), boldFont));
             totalCell.setPadding(10f);
             totalCell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
 

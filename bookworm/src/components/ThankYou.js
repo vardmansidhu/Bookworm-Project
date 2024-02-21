@@ -8,6 +8,7 @@ export default function ThankYou() {
     const location = useLocation();
     const invoiceData = location.state?.invoiceId;
     const products = location.state?.purchasedProducts;
+    const totalAmount = location.state?.total;
     const navigate = useNavigate();
 
     // console.log(location);
@@ -41,13 +42,13 @@ export default function ThankYou() {
             <h1 style={{display: 'flex' ,justifyItems: 'center', justifyContent: 'center', marginTop: '20px'}}>Thank you for your purchase!</h1>
             <h2 style={{marginLeft: '20px', marginTop: '20px', marginBottom: '20px'}}>Items Purchased:</h2>
             <ul>
-                {products.map((product, index) => (
+                {products?.map((product, index) => (
                     <li style={{display: 'flex', justifyContent: 'space-between'}} key={index}>
                         <b><p>{index+1} Book : {product.productEngName}</p></b>
                         <b><p style={{marginRight: '20px'}}>Price : {product.specialCost}</p></b>
                     </li>))}
             </ul>
-            <h3 style={{display: 'flex', justifyItems: 'center', justifyContent: 'center'}}>Total Paid: </h3>
+            <h3 style={{display: 'flex', justifyItems: 'center', justifyContent: 'center'}}>Total Paid: {totalAmount}</h3>
             <div style={{display: 'flex', justifyContent: 'center', justifyItems: 'center', marginTop: '10vh'}}>
                 <Button onClick={handleDownloadInvoice}>Download Invoice</Button>
                 <Button onClick={() => navigate('/')} style={{marginLeft: '10px'}} >Go Home</Button>

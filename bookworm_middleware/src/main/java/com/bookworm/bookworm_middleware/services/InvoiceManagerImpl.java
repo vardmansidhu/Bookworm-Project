@@ -9,10 +9,18 @@ import org.springframework.stereotype.Service;
 
 import com.bookworm.bookworm_middleware.dtos.InvoiceDetailDto;
 import com.bookworm.bookworm_middleware.dtos.InvoiceDto;
+import com.bookworm.bookworm_middleware.entities.Beneficiary;
 import com.bookworm.bookworm_middleware.entities.Customer;
 import com.bookworm.bookworm_middleware.entities.Invoice;
 import com.bookworm.bookworm_middleware.entities.InvoiceDetails;
+import com.bookworm.bookworm_middleware.entities.Product;
+import com.bookworm.bookworm_middleware.entities.ProductBeneficiary;
+import com.bookworm.bookworm_middleware.entities.RoyaltyCalculation;
+import com.bookworm.bookworm_middleware.repositories.IBeneficiaryRepository;
 import com.bookworm.bookworm_middleware.repositories.IInvoiceRepository;
+import com.bookworm.bookworm_middleware.repositories.IProductBeneficiaryRepository;
+import com.bookworm.bookworm_middleware.repositories.IProductRepository;
+import com.bookworm.bookworm_middleware.repositories.IRoyaltyCalculationRepository;
 
 import jakarta.transaction.TransactionScoped;
 import jakarta.transaction.Transactional;
@@ -24,6 +32,18 @@ public class InvoiceManagerImpl implements IInvoiceManager {
 
 	@Autowired
 	IInvoiceDetailsManager invoiceDetailsManager;
+
+	@Autowired
+	IProductBeneficiaryRepository productBeneficiaryRepo;
+
+	@Autowired
+	IBeneficiaryRepository beneficiaryRepo;
+
+	@Autowired
+	IRoyaltyCalculationRepository royaltycalculationrepo;
+
+	@Autowired
+	IProductRepository productRepository;
 
 	@Override
 	public Optional<Invoice> getInvoiceById(int invoiceid) {
@@ -103,6 +123,59 @@ public class InvoiceManagerImpl implements IInvoiceManager {
 			invoiceDetails.setTransactionType(detailDto.getTransactionTypeId());
 			invoiceDetails.setRentingDays(detailDto.getRentingDays());
 			invoiceDetailsManager.addInvoiceDetails(invoiceDetails);
+
+			int productid = detailDto.getProductId();// for rent purpose otherwise deprecated
+			List<ProductBeneficiary> productBeneficiaries = productBeneficiaryRepo
+					.findBeneficiariesByProductId(detailDto.getProductId());
+			for (ProductBeneficiary productBeneficiary : productBeneficiaries) {
+				Beneficiary beneficiary = productBeneficiary.getBenId();
+				double royalty = 0;
+				//
+				// if (detailDto.getTransactionTypeId() == 1) { // Purchase
+				// royalty = beneficiary.getAmount() + detailDto.getBasePrice() *
+				// productBeneficiary.getPercentage() / 100;
+				// } else if (detailDto.getTransactionTypeId() == 2) { // Rent
+				// // Calculate royalty based on renting days
+				// royalty = beneficiary.getAmount() + (detailDto.getBasePrice() *
+				// productBeneficiary.getPercentage() / 100) * detailDto.getRentingDays();
+				// }
+				//
+				// //royalty = beneficiary.getAmount()
+				// // + detailDto.getBasePrice() * productBeneficiary.getPercentage() / 100;
+				// beneficiary.setAmount(royalty);
+				// beneficiaryRepo.save(beneficiary);
+
+				if (detailDto.getTransactionTypeId() == 1) { // Purchase
+					royalty = detailDto.getBasePrice() * productBeneficiary.getPercentage() / 100;
+				} else // if (detailDto.getTransactionTypeId() == 2)
+				{ // Rent
+					// Calculate royalty based on renting days
+					Product product = (Product) productRepository.getById(productid);
+					Double rent = (double) product.getRentPerDay();
+					System.out.println(rent);
+					royalty = (rent * detailDto.getRentingDays()) * productBeneficiary.getPercentage() / 100;
+
+					// royalty = (detailDto.getBasePrice() * productBeneficiary.getPercentage() /
+					// 100) * detailDto.getRentingDays();
+				}
+
+				RoyaltyCalculation royaltycalculation = new RoyaltyCalculation();
+				royaltycalculation.setInvoiceId(savedInvoice.getInvoiceid());
+				royaltycalculation.setBenId(beneficiary.getBenId());
+				royaltycalculation.setProdId(detailDto.getProductId());
+				royaltycalculation.setTrantype(detailDto.getTransactionTypeId());
+				royaltycalculation.setSaleprice(detailDto.getSellingPrice());
+				royaltycalculation.setBaseprice(detailDto.getBasePrice());
+				royaltycalculation.setRoyaltyOnBasePrice(royalty);
+
+				java.util.Date utilDate = new java.util.Date();
+				java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+				royaltycalculation.setRoycalTrandate(sqlDate); // assuming current date
+				// Save the royaltycalculation using your RoyaltyCalculationRepository
+				royaltycalculationrepo.save(royaltycalculation);
+			}
+
 		}
 
 		return savedInvoice.getInvoiceid();

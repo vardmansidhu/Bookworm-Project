@@ -36,7 +36,7 @@ export default function Cart() {
   }, [cookies.cart]);
 
   const totalAmount = products.reduce(
-    (total, product) => total + product.basePrice,
+    (total, product) => total + product.specialCost,
     0
   );
 
@@ -83,7 +83,29 @@ export default function Cart() {
       setProducts([]);
       setCookie("cart", [], { path: "/" });
 
-      // let currPrice = product.basePrice;
+      products.forEach(product => {
+        let expiryDate = product.isRent ? new Date(Date.now() + 28 * 24 * 60 * 60 * 1000) : null; // Set expiry date to 28 days from now for rented products
+        let myshelf = {
+          customerId: cookies.user,
+          productId: product,
+          transactionTypeId: product.isRent ? 2 : 1,
+          expiryDate: expiryDate,
+          isActive: true
+        };
+        console.log(myshelf);
+        fetch('http://localhost:8080/api/myshelf/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(myshelf)
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+          })
+          .catch((error) => console.log(error));
+      });
 
       const invoiceDetailsList = products.map(product => ({
         // "invDtlId": 1,
@@ -121,7 +143,7 @@ export default function Cart() {
       .then(data => {
           if (data) {
               console.log(data);
-              navigate("/thankyou", { state: { invoiceId: data, purchasedProducts: products } });
+              navigate("/thankyou", { state: { invoiceId: data, purchasedProducts: products , total: totalAmount} });
           }
       })
       .catch((error) => console.log(error));
@@ -198,7 +220,7 @@ const removeFromCart = (productId, isRent) => {
                         </small>
                       </div>
                       <span className="text-body-secondary">
-                        ₹{product.basePrice}
+                        ₹{product.specialCost}
                       </span>
                       <Button
                         variant="danger"

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookworm.bookworm_middleware.entities.Genre;
+import com.bookworm.bookworm_middleware.entities.Language;
 import com.bookworm.bookworm_middleware.services.IGenreManager;
 
 @RestController
@@ -44,6 +45,11 @@ public class GenreController {
 	@GetMapping("/getByName/{name}")
 	public Optional<Genre> getGenreByName(@PathVariable String name) {
 		return genreServices.getGenreByName(name);
+	}
+
+	@GetMapping("/getByLanguageId/{id}")
+	public List<Genre> getGenreByName(@PathVariable int id) {
+		return genreServices.getGenreByLanguageId(id);
 	}
 
 	@DeleteMapping("/delete/{id}")

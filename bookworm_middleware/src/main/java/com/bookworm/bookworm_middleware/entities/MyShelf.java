@@ -2,12 +2,17 @@ package com.bookworm.bookworm_middleware.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "myshelf")
@@ -21,8 +26,9 @@ public class MyShelf {
     @Column(name = "customer_id")
     private Integer customerId;
 
-    @Column(name = "product_id")
-    private Integer productId;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product productId;
 
     @Column(name = "transaction_type_id")
     private Integer transactionTypeId;
@@ -49,11 +55,11 @@ public class MyShelf {
         this.customerId = customerId;
     }
 
-    public Integer getProductId() {
+    public Product getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Product productId) {
         this.productId = productId;
     }
 
@@ -84,12 +90,12 @@ public class MyShelf {
     @Override
     public String toString() {
         return "MyShelf{" +
-            "shelfId=" + shelfId +
-            ", customerId=" + customerId +
-            ", productId=" + productId +
-            ", transactionTypeId=" + transactionTypeId +
-            ", expiryDate=" + expiryDate +
-            ", isActive=" + isActive +
-            '}';
+                "shelfId=" + shelfId +
+                ", customerId=" + customerId +
+                ", productId=" + productId +
+                ", transactionTypeId=" + transactionTypeId +
+                ", expiryDate=" + expiryDate +
+                ", isActive=" + isActive +
+                '}';
     }
 }

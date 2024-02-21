@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +41,27 @@ public class ProductController {
 	@GetMapping(value = "get/{typeId}/{langId}")
 	public List<Product> getByTypeAndLang(@PathVariable int typeId, @PathVariable int langId) {
 		return proService.getLanguageAndType(langId, typeId);
+	}
+
+	// @GetMapping("getNotInShelf/{customerId}")
+	// public ResponseEntity<List<Product>> getProductsNotInShelf(@PathVariable
+	// Integer customerId) {
+	// List<Product> products = proService.getProductsNotInShelf(customerId);
+	// return new ResponseEntity<>(products, HttpStatus.OK);
+	// }
+
+	@GetMapping("/getByTypeNotInShelf/{typeId}/{customerId}")
+	public ResponseEntity<List<Product>> getProductsByTypeNotInShelf(@PathVariable int typeId,
+			@PathVariable int customerId) {
+		List<Product> products = proService.getProductsByTypeNotInShelf(typeId, customerId);
+		return new ResponseEntity<>(products, HttpStatus.OK);
+	}
+
+	@GetMapping("/getByLanguageAndTypeNotInShelf/{language_id}/{type_id}/{customerId}")
+	public ResponseEntity<List<Product>> getProductsByLanguageAndTypeNotInShelf(@PathVariable int language_id,
+			@PathVariable int type_id, @PathVariable int customerId) {
+		List<Product> products = proService.getProductsByLanguageAndTypeNotInShelf(language_id, type_id, customerId);
+		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "delete/{pid}")

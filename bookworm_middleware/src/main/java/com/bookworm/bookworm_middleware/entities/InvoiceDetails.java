@@ -40,8 +40,8 @@ public class InvoiceDetails {
 	private double sellingPrice;
 
 	// @ManyToOne
-	// @JoinColumn(name = "transaction_type_id", referencedColumnName =
-	// "transaction_type_id")
+	@JoinColumn(name = "transaction_type_id", referencedColumnName = "transaction_type_id")
+	@Column(name = "transaction_Id")
 	private Integer transactionTypeId;
 
 	@Column(name = "renting_days")
@@ -74,7 +74,7 @@ public class InvoiceDetails {
 	// public int getQuantity() {
 	// return quantity;
 	// }
-
+	//
 	// public void setQuantity(int quantity) {
 	// this.quantity = quantity;
 	// }

@@ -34,4 +34,10 @@ public class LanguageManagerImpl implements ILanguageManager {
     public void deleteLanguage(int id) {
         languageRepository.deleteById(id);
     }
+
+    @Override
+    public List<Language> getLanguageDescByTypeId(int typeid) {
+        return languageRepository.findLanguageDescByTypeId(typeid);
+    }
+
 }

@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookworm.bookworm_middleware.entities.Beneficiary;
-import com.bookworm.bookworm_middleware.repositories.BeneficiaryMangerRepository;
+import com.bookworm.bookworm_middleware.repositories.IBeneficiaryRepository;
 
 @Service
 public class BeneficiaryManagerImpl implements IBenificiaryManager {
-	
+
 	@Autowired
-	private BeneficiaryMangerRepository repository;
+	private IBeneficiaryRepository repository;
 
 	@Override
 	public void addBeneficiary(Beneficiary b) {

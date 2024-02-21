@@ -11,20 +11,20 @@ import com.bookworm.bookworm_middleware.repositories.IProductRepository;
 
 @Service
 public class ProductManagerImpl implements IProductManager {
-    
-    @Autowired
-    IProductRepository productRepo;
 
-    @Override
+	@Autowired
+	IProductRepository productRepo;
+
+	@Override
 	public void addProduct(Product product) {
 
 		System.out.println("Inside the service \n" + productRepo.save(product));
 	}
 
 	@Override
-	public Product getProduct(int id)  {
+	public Product getProduct(int id) {
 		Product obj = productRepo.getById(id);
-        return obj;
+		return obj;
 
 	}
 
@@ -37,12 +37,12 @@ public class ProductManagerImpl implements IProductManager {
 
 	}
 
-//	@Override
-//	public void updateById(int id, Product product) {
-//           
-//		productRepo.u
-//		
-//	}
+	// @Override
+	// public void updateById(int id, Product product) {
+	//
+	// productRepo.u
+	//
+	// }
 
 	@Override
 	public List<Product> getAllProducts() {
@@ -71,15 +71,22 @@ public class ProductManagerImpl implements IProductManager {
 		return productRepo.findByProductLanguageAndType(lang_id, type_id);
 	}
 
-//	@Override
-//	public void updateById(Product product, long id) {
-//		ProductRepo.updateById(product, id);
-//	}
+	// @Override
+	// public void updateById(Product product, long id) {
+	// ProductRepo.updateById(product, id);
+	// }
 
 	@Override
 	public String getProductNamebyId(int id) {
 		return productRepo.findProductNameById(id);
 	}
 
-   
+	public List<Product> getProductsByTypeNotInShelf(int typeId, int customerId) {
+		return productRepo.findProductsByTypeNotInShelf(typeId, customerId);
+	}
+
+	public List<Product> getProductsByLanguageAndTypeNotInShelf(int language_id, int type_id, int customerId) {
+		return productRepo.findProductsByLanguageAndTypeNotInShelf(language_id, type_id, customerId);
+	}
+
 }

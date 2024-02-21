@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import '../css/Login.css';
 
 function Login() {
     const [user, setUser] = useState({});

@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookworm.bookworm_middleware.entities.MyShelf;
+import com.bookworm.bookworm_middleware.entities.Product;
 import com.bookworm.bookworm_middleware.repositories.IMyShelfRepository;
-// import com.bookworm.bookworm_middleware.services.IMyShelfManager;
 
 import java.util.List;
 
@@ -33,5 +33,11 @@ public class MyShelfManagerImpl implements IMyShelfManager {
     @Override
     public void deleteMyShelfItem(Integer id) {
         myShelfRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Product> findByCustomerId(Integer customerId) {
+        // TODO Auto-generated method stub
+        return myShelfRepository.findByCustomerId(customerId);
     }
 }

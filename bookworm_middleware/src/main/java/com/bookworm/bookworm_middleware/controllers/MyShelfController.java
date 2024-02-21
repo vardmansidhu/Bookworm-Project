@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.bookworm.bookworm_middleware.entities.MyShelf;
+import com.bookworm.bookworm_middleware.entities.Product;
 import com.bookworm.bookworm_middleware.services.IMyShelfManager;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class MyShelfController {
         return ResponseEntity.ok(myShelfService.getAllMyShelfItems());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<MyShelf> getMyShelfItemById(@PathVariable Integer id) {
         MyShelf myShelf = myShelfService.getMyShelfItemById(id);
         if (myShelf != null) {
@@ -32,8 +33,20 @@ public class MyShelfController {
         }
     }
 
-    @PostMapping
+    @GetMapping("/getbycustomer/{id}")
+    public ResponseEntity<List<Product>> findByCustomerId(@PathVariable Integer id) {
+        List<Product> products = myShelfService.findByCustomerId(id);
+        if (products != null) {
+            return ResponseEntity.ok(products);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/add")
     public ResponseEntity<MyShelf> createMyShelfItem(@RequestBody MyShelf myShelf) {
+
+        System.out.println(myShelf);
         return ResponseEntity.ok(myShelfService.saveMyShelfItem(myShelf));
     }
 
@@ -49,7 +62,7 @@ public class MyShelfController {
     // }
     // }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteMyShelfItem(@PathVariable Integer id) {
         MyShelf existingMyShelf = myShelfService.getMyShelfItemById(id);
         if (existingMyShelf != null) {

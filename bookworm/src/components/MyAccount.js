@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { saveAs } from "file-saver";
+import { Button } from "react-bootstrap";
 
 function MyAccount() {
   const [user, setUser] = useState(null);
@@ -116,9 +117,7 @@ function MyAccount() {
                 <h3>Total Amount: {orders[0].invoiceAmount}</h3>
                 <h3>
                   Download Invoice:{" "}
-                  <a
-                    target="_blank"
-                    href="#"
+                  <Button
                     onClick={(e) => {
                       e.preventDefault();
                       axios
@@ -140,7 +139,7 @@ function MyAccount() {
                     }}
                   >
                     Download
-                  </a>
+                  </Button>
                 </h3>
               </div>
               {orders.map((order, index) => {
@@ -162,7 +161,7 @@ function MyAccount() {
                     }}
                   >
                     <p style={{ color: "#666" }}>
-                      Book Name:{" "}
+                      Product:{" "}
                       {product ? product.productName : "Product not found"}
                     </p>
                     <p style={{ color: "#666" }}>MRP: {order.basePrice}</p>

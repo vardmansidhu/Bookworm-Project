@@ -114,13 +114,7 @@ export default function MyNavbar() {
         </Nav.Link>
         {!cookies.user ? (
           <Nav.Link as={Link} to="/login">
-            <Button
-              style={{
-                color: "black",
-                backgroundColor: "white",
-                border: "0px",
-              }}
-            >
+            <Button className="logout-button">
               <FaSignInAlt /> Login/Register
             </Button>
           </Nav.Link>

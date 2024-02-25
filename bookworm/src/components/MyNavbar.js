@@ -15,6 +15,7 @@ import {
   FaSignInAlt,
 } from "react-icons/fa";
 import { useCookies } from "react-cookie";
+import "../css/MyNavbar.css";
 
 export default function MyNavbar() {
   const [cookies, setCookie] = useCookies(["user"]);
@@ -34,7 +35,7 @@ export default function MyNavbar() {
   };
 
   return (
-    <div>
+    <div style={{ fontFamily: "Montserrat, sans-serrif" }}>
       <Navbar bg="light" variant="" expand="md" className="px-4">
         <Navbar.Brand as={Link} to="/">
           <img
@@ -124,10 +125,7 @@ export default function MyNavbar() {
             </Button>
           </Nav.Link>
         ) : (
-          <Button
-            onClick={handlelogout}
-            style={{ color: "black", backgroundColor: "white", border: "0px" }}
-          >
+          <Button className="logout-button" onClick={handlelogout}>
             <FaSignInAlt /> Logout
           </Button>
         )}

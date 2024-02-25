@@ -1,0 +1,15 @@
+.logout-button {
+    color: #333; /* dark gray */
+    background-color: #f2f2f2; /* light gray */
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    color: #333;
+    background-color: #e6e6e6; /* slightly darker gray */
+}
+
+.logout-button:active {
+    background-color: #ccc; /* even darker gray */
+}

@@ -8,16 +8,17 @@ export default function Home() {
   return (
     <div>
       <MyCarousel />
-      {cookies.user ? (
-        <>
-          <h1>Trending Products</h1>
-          <h1>Upcoming</h1>
-        </>
-      ) : (
-        <>
-          <h1>logged out</h1>
-        </>
-      )}
+      <h1
+        style={{
+          fontFamily: "Montserrat,sans-serif",
+          display: "flex",
+          justifyContent: "center",
+          padding: "30px",
+        }}
+      >
+        Trending
+      </h1>
+      {/* <h1>Upcoming</h1> */}
     </div>
   );
 }

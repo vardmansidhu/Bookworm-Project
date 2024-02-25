@@ -65,4 +65,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
 	List<Product> findProductsByLanguageAndTypeNotInShelf(@Param("language_id") int language_id,
 			@Param("type_id") int type_id, @Param("customerId") int customerId);
 
+	@Query(value = "SELECT p.product_id, p.product_eng_name from product p", nativeQuery = true)
+	List<Object[]> findProductsByIdAndName();
+
 }

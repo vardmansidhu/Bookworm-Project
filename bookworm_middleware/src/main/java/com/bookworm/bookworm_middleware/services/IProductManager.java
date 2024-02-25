@@ -33,4 +33,6 @@ public interface IProductManager {
 
 	public List<Product> getProductsByLanguageAndTypeNotInShelf(int language_id, int type_id, int customerId);
 
+	List<Object[]> getProductsIdAndName();
+
 }

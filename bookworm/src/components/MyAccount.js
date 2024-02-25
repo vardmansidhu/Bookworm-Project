@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 function MyAccount() {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState(null);
+  const [products, setProducts] = useState(null);
   const [cookies, setCookie] = useCookies(["user"]);
 
   useEffect(() => {
@@ -30,6 +31,19 @@ function MyAccount() {
           transactionTypeId: order[6] === 1 ? "Purchase" : "Rent",
         }));
         setOrders(transformedData);
+        console.log(transformedData);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/product/names`)
+      .then((response) => response.json())
+      .then((data) => {
+        const transformedData = data.map((product) => ({
+          productId: product[0],
+          productName: product[1],
+        }));
+        setProducts(transformedData);
         console.log(transformedData);
       });
   }, []);
@@ -75,31 +89,41 @@ function MyAccount() {
           Your Order History
         </h1>
         {orders &&
-          orders.map((order, index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                padding: "10px",
-                width: "80%",
-                margin: "10px auto",
-                backgroundColor: "#fff",
-                borderRadius: "10px",
-                boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
-              }}
-            >
-              <p style={{ color: "#666" }}>Product ID: {order.productId}</p>
-              <p style={{ color: "#666" }}>Base Price: {order.basePrice}</p>
-              <p style={{ color: "#666" }}>
-                Selling Price: {order.sellingPrice}
-              </p>
-              <p style={{ color: "#666" }}>Purchased On: {order.invoiceDate}</p>
-              <p style={{ color: "#666" }}>
-                Transaction Type: {order.transactionTypeId}
-              </p>
-            </div>
-          ))}
+          orders.map((order, index) => {
+            const product = products.find(
+              (product) => product.productId === order.productId
+            );
+            return (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "10px",
+                  width: "80%",
+                  margin: "10px auto",
+                  backgroundColor: "#fff",
+                  borderRadius: "10px",
+                  boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
+                }}
+              >
+                <p style={{ color: "#666" }}>
+                  Book Name:{" "}
+                  {product ? product.productName : "Product not found"}
+                </p>
+                <p style={{ color: "#666" }}>MRP: {order.basePrice}</p>
+                <p style={{ color: "#666" }}>
+                  Selling Price: {order.sellingPrice}
+                </p>
+                <p style={{ color: "#666" }}>
+                  Purchased On: {order.invoiceDate}
+                </p>
+                <p style={{ color: "#666" }}>
+                  Transaction Type: {order.transactionTypeId}
+                </p>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

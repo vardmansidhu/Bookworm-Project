@@ -81,12 +81,19 @@ public class ProductManagerImpl implements IProductManager {
 		return productRepo.findProductNameById(id);
 	}
 
+	@Override
 	public List<Product> getProductsByTypeNotInShelf(int typeId, int customerId) {
 		return productRepo.findProductsByTypeNotInShelf(typeId, customerId);
 	}
 
+	@Override
 	public List<Product> getProductsByLanguageAndTypeNotInShelf(int language_id, int type_id, int customerId) {
 		return productRepo.findProductsByLanguageAndTypeNotInShelf(language_id, type_id, customerId);
+	}
+
+	@Override
+	public List<Object[]> getProductsIdAndName() {
+		return productRepo.findProductsByIdAndName();
 	}
 
 }

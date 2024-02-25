@@ -134,4 +134,9 @@ public class ProductController {
 		return sendList;
 	}
 
+	@GetMapping("/names")
+	public List<Object[]> getProductsIdAndName() {
+		return proService.getProductsIdAndName();
+	}
+
 }

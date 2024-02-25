@@ -33,6 +33,6 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
 	@Query(value = "SELECT i.customer_id FROM Invoice i WHERE i.invoice_id = :invoiceId", nativeQuery = true)
 	Integer findCustomerIdByInvoiceId(int invoiceId);
 
-	@Query(value = "SELECT customer_id, invoice_amount, invoice_date, base_price, selling_price, product_id, transaction_type_id FROM invoice i JOIN invoice_details d ON i.invoice_id = d.invoice_id WHERE customer_id = :customerid", nativeQuery = true)
+	@Query(value = "SELECT i.invoice_id,customer_id, invoice_amount, invoice_date, base_price, selling_price, product_id, transaction_type_id FROM invoice i JOIN invoice_details d ON i.invoice_id = d.invoice_id WHERE customer_id = :customerid", nativeQuery = true)
 	List<Object[]> findOrdersByCustomerId(int customerid);
 }

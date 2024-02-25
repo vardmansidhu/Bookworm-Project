@@ -20,11 +20,11 @@ public class RoyaltyCalculation {
 	@Column(name = "roycal_id")
 	private int roycalId;
 
-	@Column(name = "Invoice_Id")
+	@Column(name = "invoice_id")
 	private int invoiceId;
 
 	// @OneToOne
-	@Column(name = "Ben_Id")
+	@Column(name = "ben_id")
 	// @PrimaryKeyJoinColumn
 	private int benId;
 
@@ -47,7 +47,7 @@ public class RoyaltyCalculation {
 	@Column(name = "baseprice")
 	private double baseprice;
 
-	@Column(name = "RoyaltyOnBasePrice")
+	@Column(name = "royalty_on_base_price")
 	private double royaltyOnBasePrice;
 
 	public int getRoycalId() {

@@ -173,12 +173,18 @@ public class InvoiceManagerImpl implements IInvoiceManager {
 
 				royaltycalculation.setRoycalTrandate(sqlDate); // assuming current date
 				// Save the royaltycalculation using your RoyaltyCalculationRepository
+				System.out.println("Royalty Calculated was " + royaltycalculation.toString());
 				royaltycalculationrepo.save(royaltycalculation);
 			}
 
 		}
 
 		return savedInvoice.getInvoiceid();
+	}
+
+	@Override
+	public List<Object[]> getOrdersByCustomerId(int customerid) {
+		return repo.findOrdersByCustomerId(customerid);
 	}
 
 }

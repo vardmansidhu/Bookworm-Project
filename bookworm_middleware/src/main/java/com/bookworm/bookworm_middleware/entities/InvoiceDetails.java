@@ -40,8 +40,9 @@ public class InvoiceDetails {
 	private double sellingPrice;
 
 	// @ManyToOne
-	@JoinColumn(name = "transaction_type_id", referencedColumnName = "transaction_type_id")
-	@Column(name = "transaction_Id")
+	// @JoinColumn(name = "transaction_type_id", referencedColumnName =
+	// "transaction_type_id")
+	@Column(name = "transaction_type_id")
 	private Integer transactionTypeId;
 
 	@Column(name = "renting_days")

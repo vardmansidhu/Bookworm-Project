@@ -29,4 +29,6 @@ public interface IInvoiceManager {
 
 	Integer getCustomerIdByInvoiceId(int invoiceId);
 
+	List<Object[]> getOrdersByCustomerId(int customerid);
+
 }

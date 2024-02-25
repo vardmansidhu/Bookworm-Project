@@ -3,6 +3,7 @@ package com.bookworm.bookworm_middleware.controllers;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,11 @@ public class InvoiceController {
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf")
 				.body(resource);
+	}
+
+	@GetMapping("/orders/{id}")
+	public ResponseEntity<List<Object[]>> getOrdersByCustomerId(@PathVariable int id) {
+		return ResponseEntity.ok(iservice.getOrdersByCustomerId(id));
 	}
 
 }

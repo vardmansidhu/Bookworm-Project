@@ -169,7 +169,7 @@ export default function MyCard({ typeId, selectedLanguage, selectedGenre }) {
                         }}
                       >
                         <Button
-                          variant="danger"
+                          // variant="danger"
                           onClick={() => addToCart(product.productId, false)}
                         >
                           Buy
@@ -184,7 +184,7 @@ export default function MyCard({ typeId, selectedLanguage, selectedGenre }) {
                           }
                         >
                           <Dropdown.Toggle
-                            variant="secondary"
+                            // variant="secondary"
                             id="dropdown-basic"
                           >
                             Rent Now

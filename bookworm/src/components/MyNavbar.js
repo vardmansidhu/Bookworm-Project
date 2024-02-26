@@ -114,7 +114,7 @@ export default function MyNavbar() {
         </Nav.Link>
         {!cookies.user ? (
           <Nav.Link as={Link} to="/login">
-            <Button className="logout-button">
+            <Button className="login-button-navbar">
               <FaSignInAlt /> Login/Register
             </Button>
           </Nav.Link>

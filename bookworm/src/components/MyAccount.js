@@ -103,7 +103,15 @@ function MyAccount() {
         </h1>
         {orders &&
           Object.entries(orders).map(([invoiceId, orders], index) => (
-            <div key={index}>
+            <div
+              key={index}
+              style={{
+                borderRadius: "10px",
+                boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
+                marginBottom: "20px",
+                backgroundColor: "#fff",
+              }}
+            >
               <div
                 style={{
                   display: "flex",
@@ -113,7 +121,7 @@ function MyAccount() {
                   padding: "20px",
                 }}
               >
-                <h3>Invoice ID: {index + 1}</h3>
+                <h3>Order ID: {index + 1}</h3>
                 <h3>Total Amount: {orders[0].invoiceAmount}</h3>
                 <h3>
                   Download Invoice:{" "}
@@ -154,10 +162,10 @@ function MyAccount() {
                       justifyContent: "space-between",
                       padding: "10px",
                       width: "80%",
-                      margin: "10px auto",
+                      margin: "0 auto",
                       backgroundColor: "#fff",
-                      borderRadius: "10px",
-                      boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
+                      // borderRadius: "10px",
+                      // boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
                     }}
                   >
                     <p style={{ color: "#666" }}>

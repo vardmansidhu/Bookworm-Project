@@ -83,8 +83,8 @@ function Login() {
           <div className="d-grid">
             <button
               type="submit"
-              className="btn btn-primary"
-              style={{ background: "black", color: "white", border: "none" }}
+              className="login-button"
+              // style={{ background: "black", color: "white", border: "none" }}
             >
               Sign in
             </button>
